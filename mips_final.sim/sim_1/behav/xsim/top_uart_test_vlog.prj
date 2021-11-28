@@ -1,0 +1,13 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../mips_final.srcs/sources_1/new/alu.v" \
+"../../../../mips_final.srcs/sources_1/new/intf.v" \
+"../../../../mips_final.srcs/sources_1/new/top_uart.v" \
+"../../../../mips_final.srcs/sources_1/new/uart.v" \
+"../../../../mips_final.srcs/sim_1/new/top_uart_test.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
