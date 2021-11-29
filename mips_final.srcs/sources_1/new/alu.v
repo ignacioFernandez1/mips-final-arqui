@@ -7,7 +7,7 @@ module alu
   (
     input wire [N_BITS-1:0]d0, 
     input wire [N_BITS-1:0]d1, 
-    input wire [5:0]opcode, 
+    input wire [5:0]opcode,
     output reg [N_BITS-1:0]out
   );
 
