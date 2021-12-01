@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Tue Nov 30 11:25:05 2021
+# Process ID: 11592
+# Current directory: E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.runs/clk_wiz_0_synth_1
+# Command line: vivado.exe -log clk_wiz_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source clk_wiz_0.tcl
+# Log file: E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.runs/clk_wiz_0_synth_1/clk_wiz_0.vds
+# Journal file: E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.runs/clk_wiz_0_synth_1\vivado.jou
+#-----------------------------------------------------------
+source clk_wiz_0.tcl -notrace

@@ -1,19 +1,8 @@
 Vivado Simulator v2021.1
 Copyright 1986-1999, 2001-2021 Xilinx, Inc. All Rights Reserved.
-Running: E:/Programs/Xilinx/Vivado/2021.1/bin/unwrapped/win64.o/xelab.exe -wto cbbbf05b556d46ac8dc42fad21debae6 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot top_uart_test_behav xil_defaultlib.top_uart_test xil_defaultlib.glbl -log elaborate.log 
+Running: E:/Programas/Xilinx/Vivado/2021.1/bin/unwrapped/win64.o/xelab.exe -wto cbbbf05b556d46ac8dc42fad21debae6 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot fetch_tb_behav xil_defaultlib.fetch_tb xil_defaultlib.glbl -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
 Completed static elaboration
-Starting simulation data flow analysis
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.baud_rate_default
-Compiling module xil_defaultlib.Tx
-Compiling module xil_defaultlib.Rx
-Compiling module xil_defaultlib.intf
-Compiling module xil_defaultlib.alu
-Compiling module xil_defaultlib.top_uart
-Compiling module xil_defaultlib.top_uart_test
-Compiling module xil_defaultlib.glbl
-Built simulation snapshot top_uart_test_behav
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
