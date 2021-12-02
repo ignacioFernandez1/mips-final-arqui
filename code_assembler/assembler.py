@@ -3,7 +3,8 @@ import re
 
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('-f','--file', help='file path', required=True)
-args = vars(parser.parse_args())
+parser.add_argument('-o','--outfile', help='outfile path', required=True)
+program_args = vars(parser.parse_args())
 
 R_TYPE = "r_type"
 I_TYPE = "i_type"
@@ -392,7 +393,7 @@ def get_register_number(reg: str):
 if __name__ == "__main__":
     instructions = []
 
-    with open(args["file"], 'r') as f:
+    with open(program_args["file"], 'r') as f:
         lines = f.readlines()
         for l in lines:
             op, args = parse_line(l)
@@ -418,4 +419,7 @@ if __name__ == "__main__":
 
             instructions.append(f.format(**values)) 
 
-    print("instructions:", instructions)
+    # write
+    with open(program_args["outfile"], 'w+') as f:
+        for i in instructions:
+            f.write(i + "\n")
