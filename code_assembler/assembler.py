@@ -419,7 +419,9 @@ if __name__ == "__main__":
 
             instructions.append(f.format(**values)) 
 
+    print(instructions)
     # write
-    with open(program_args["outfile"], 'w+') as f:
+    with open(program_args["outfile"], 'wb+') as f:
         for i in instructions:
-            f.write(i + "\n")
+            byte_array = bytearray(int(i[x:x+8], 2) for x in range(0, len(i), 8))
+            f.write(byte_array)

@@ -22,20 +22,18 @@
 
 module io_file();
    reg    clk;
-   reg [8*32:0] data;
+   reg [31:0] data;
    integer   fd;
    integer   code, dummy;
-   reg [8*32:0] str;
    
    initial begin
-      fd = $fopen("input.dat","r"); 
+      fd = $fopen("input.dat","rb"); 
       clk = 0;
       data = 0;
       code = 1;
-      $monitor("data = %x", data);
+      $monitor("data = %b", data);
       while (code) begin
-         code = $fgets(str, fd);
-         dummy = $sscanf(str, "%x", data);
+         code = $fread(data, fd);
          @(posedge clk);
       end
       $finish;
