@@ -1,1 +1,10 @@
-SLL f1,f2,2
+SLL f10, f2, 2
+SLLV f7, f11, f3
+LB f1, 1024(f5)
+LW f1, 1024(f5)
+LUI f1, 360
+BEQ f3, f4, 10
+J 8000
+JR f5
+JALR f10
+JALR f10,f9
