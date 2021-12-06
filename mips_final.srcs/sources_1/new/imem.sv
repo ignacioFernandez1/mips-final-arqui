@@ -2,82 +2,17 @@
 
 module imem
   #(parameter N = 32)
-  ( input wire [N-1:0] i, // instruccion a escribir en la memoria
-    input wire [5:0] addr, // direccion a donde buscar la instruccion
-    input wire op, // 0 = escritura de instruccion | 1 = lectura de instruccion 
-    output reg [N-1:0] q);
+  ( input logic [N-1:0] i, // instruccion a escribir en la memoria
+    input logic [5:0] addr, // direccion a donde buscar la instruccion
+    input logic op, // 0 = escritura de instruccion | 1 = lectura de instruccion 
+    output logic [N-1:0] q);
     
     
         // LOCAL PARAMETER
    localparam WRITE = 0;
    localparam READ = 1;
       
-   reg [31:0] rom [63:0] = {
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000,
-                              32'h00000000
-                             };
+   logic [31:0] rom [63:0];
                              
 
    
