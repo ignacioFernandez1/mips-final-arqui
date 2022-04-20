@@ -22,7 +22,7 @@
 
 module io_file();
    reg    clk;
-   reg [31:0] data;
+   reg [7:0] data;
    integer   fd;
    integer   code, dummy;
    

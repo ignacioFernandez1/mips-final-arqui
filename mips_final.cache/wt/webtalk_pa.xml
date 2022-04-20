@@ -3,9 +3,15 @@
 <!--The data in this file is primarily intended for consumption by Xilinx tools.
 The structure and the elements are likely to change over the next few releases.
 This means code written to parse this file will need to be revisited each subsequent release.-->
+<<<<<<< HEAD
 <application name="pa" timeStamp="Sun Apr 10 19:57:21 2022">
 <section name="Project Information" visible="false">
 <property name="ProjectID" value="0f1bfc49bac643ca8287dcde39a7b6b8" type="ProjectID"/>
+=======
+<application name="pa" timeStamp="Mon Dec  6 19:31:32 2021">
+<section name="Project Information" visible="false">
+<property name="ProjectID" value="55ba7d8b7600492fafec232e40971970" type="ProjectID"/>
+>>>>>>> e253427ed405f7870c821ad7740681e250e99ba2
 <property name="ProjectIteration" value="1" type="ProjectIteration"/>
 </section>
 <section name="PlanAhead Usage" visible="true">
@@ -17,6 +23,7 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="ImplStrategy" value="Vivado Implementation Defaults" type="ImplStrategy"/>
 </item>
 <item name="Java Command Handlers">
+<<<<<<< HEAD
 <property name="AddSources" value="4" type="JavaHandler"/>
 <property name="EditDelete" value="1" type="JavaHandler"/>
 <property name="ExitApp" value="4" type="JavaHandler"/>
@@ -39,6 +46,18 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="GuiMode" value="37" type="GuiMode"/>
 <property name="BatchMode" value="0" type="BatchMode"/>
 <property name="TclMode" value="28" type="TclMode"/>
+=======
+<property name="ExitApp" value="1" type="JavaHandler"/>
+</item>
+<item name="Gui Handlers">
+<property name="FileSetPanel_FILE_SET_PANEL_TREE" value="7" type="GuiHandlerData"/>
+<property name="SyntheticaGettingStartedView_RECENT_PROJECTS" value="1" type="GuiHandlerData"/>
+</item>
+<item name="Other">
+<property name="GuiMode" value="11" type="GuiMode"/>
+<property name="BatchMode" value="0" type="BatchMode"/>
+<property name="TclMode" value="10" type="TclMode"/>
+>>>>>>> e253427ed405f7870c821ad7740681e250e99ba2
 </item>
 </section>
 </application>
