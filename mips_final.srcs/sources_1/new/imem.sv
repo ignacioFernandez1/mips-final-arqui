@@ -12,7 +12,7 @@ module imem
    localparam WRITE = 0;
    localparam READ = 1;
       
-   logic [31:0] rom [63:0];
+   logic [31:0] rom [0:63];
                              
 
    
