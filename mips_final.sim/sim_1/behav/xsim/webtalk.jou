@@ -2,8 +2,8 @@
 # Webtalk v2021.1 (64-bit)
 # SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
 # IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
-# Start of session at: Mon Dec  6 18:06:54 2021
-# Process ID: 6304
+# Start of session at: Tue Mar 22 20:07:09 2022
+# Process ID: 6200
 # Current directory: C:/Users/nacho/Documents/Facultad/5to/arqui/tpfinal_mips/mips_final.sim/sim_1/behav/xsim
 # Command line: wbtcv.exe -mode batch -source C:/Users/nacho/Documents/Facultad/5to/arqui/tpfinal_mips/mips_final.sim/sim_1/behav/xsim/xsim.dir/io_file_behav/webtalk/xsim_webtalk.tcl -notrace
 # Log file: C:/Users/nacho/Documents/Facultad/5to/arqui/tpfinal_mips/mips_final.sim/sim_1/behav/xsim/webtalk.log
