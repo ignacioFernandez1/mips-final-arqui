@@ -2,11 +2,11 @@
 # Webtalk v2021.1 (64-bit)
 # SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
 # IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
-# Start of session at: Mon Dec  6 18:06:54 2021
-# Process ID: 6304
-# Current directory: C:/Users/nacho/Documents/Facultad/5to/arqui/tpfinal_mips/mips_final.sim/sim_1/behav/xsim
-# Command line: wbtcv.exe -mode batch -source C:/Users/nacho/Documents/Facultad/5to/arqui/tpfinal_mips/mips_final.sim/sim_1/behav/xsim/xsim.dir/io_file_behav/webtalk/xsim_webtalk.tcl -notrace
-# Log file: C:/Users/nacho/Documents/Facultad/5to/arqui/tpfinal_mips/mips_final.sim/sim_1/behav/xsim/webtalk.log
-# Journal file: C:/Users/nacho/Documents/Facultad/5to/arqui/tpfinal_mips/mips_final.sim/sim_1/behav/xsim\webtalk.jou
+# Start of session at: Wed Apr 20 19:20:40 2022
+# Process ID: 18004
+# Current directory: E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim/xsim.dir/execute_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim\webtalk.jou
 #-----------------------------------------------------------
-source C:/Users/nacho/Documents/Facultad/5to/arqui/tpfinal_mips/mips_final.sim/sim_1/behav/xsim/xsim.dir/io_file_behav/webtalk/xsim_webtalk.tcl -notrace
+source E:/Documentos/facu/5to -notrace
