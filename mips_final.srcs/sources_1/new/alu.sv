@@ -2,7 +2,7 @@
 
 module alu
   #(
-    parameter N_BITS = 8
+    parameter N_BITS = 64
   )
   (
     input logic [N_BITS-1:0]d0, 

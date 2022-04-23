@@ -1,5 +1,11 @@
 `define CLK_TIME 10000          //`CLK_TIMEps is the period of 100Mhz
 
+`define assert(signal, value) \
+        if (signal !== value) begin \
+            $display("ASSERTION FAILED in %m: signal != value"); \
+            $finish; \
+        end
+
 module fetch_tb();
   logic clk, reset, PCSrc;
   logic [63:0] PCBranch, imem_addr;
