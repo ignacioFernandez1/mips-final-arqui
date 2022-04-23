@@ -2,7 +2,7 @@
 
 module alu
   #(
-    parameter N_BITS = 64
+    parameter N_BITS = 32
   )
   (
     input logic [N_BITS-1:0]d0, 
@@ -15,8 +15,8 @@ module alu
   always_comb 
       begin
         case (opcode)
-          6'b100000: out = d0 + d1; // add (+)
-          6'b100010: out = d0 - d1; // sub (-)
+          6'b100001: out = d0 + d1; // addu (+)
+          6'b100011: out = d0 - d1; // sub (-)
           6'b100100: out = d0 & d1; // and (&)
           6'b100101: out = d0 | d1; // or (|)
           6'b100110: out = d0 ^ d1; // xor (^)

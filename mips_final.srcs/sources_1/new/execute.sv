@@ -1,5 +1,5 @@
 module execute
-#(parameter N = 64)
+#(parameter N = 32)
 ( input logic AluSrc,
                 input logic [5:0] AluControl,
                 input logic [N-1:0] PC_E, signImm_E, 
