@@ -22,7 +22,9 @@ module alu
           6'b100110: out = d0 ^ d1; // xor (^)
           6'b000011: out = d0 >>> d1; // sra (>>>)
           6'b000010: out = d0 >> d1; // srl (>>)
+          6'b000000: out = d0 << d1; // sll (<<)
           6'b100111: out = ~(d0 | d1); // nor ~( | )
+          6'b101010: out = d0 < d1; // slt (<)
           default: out = {N_BITS{1'b0}};
         endcase
       end
