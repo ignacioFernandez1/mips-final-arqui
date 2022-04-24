@@ -1,0 +1,20 @@
+Time resolution is 1 ps
+Starting test...
+Salida esperada, PCBranch_E = 16'h6
+Salida esperada, PCBranch_E = 16'101BB
+Salida esperada, AluResult = 4
+AluResult = 4
+Salida esperada, AluResult = 3
+AluResult = 3
+Salida esperada, AluResult = 3
+AluResult = 3
+Salida esperada, AluResult = 2
+AluResult = 2
+Salida esperada, AluResult = 1
+AluResult = 1
+Salida esperada, AluResult = 7
+AluResult = 7
+Salida esperada, AluResult = 1
+AluResult = 1
+Salida esperada, AluResult = 0
+AluResult = 0
