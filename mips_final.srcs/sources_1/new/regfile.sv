@@ -19,7 +19,7 @@ module regfile
   always_ff @(posedge clk)
     begin
       // Write
-      if (clk && we3) registers[wa3] = wd3;
+      if (clk && we3) registers[wa3] <= wd3;
     end
 
 endmodule
