@@ -108,6 +108,24 @@ readData1_E, readData2_E, PCBranch_E, aluResult_E, writeData_E, zero_E);
 		$display("AluResult = %0d", aluResult_E);
 		`assert(aluResult_E, 0)
 		
+		// zero signal = true
+		AluSrc = 0; #5;
+		AluControl = 6'b100011; #5;
+		readData1_E = 32'b0010; #5;
+		readData2_E = 32'b0010; #5;
+		$display("Salida esperada, zero = 1");
+		$display("zero = %0d", zero_E);
+		`assert(zero_E, 1)
+		
+		// zero signal = false
+		AluSrc = 0; #5;
+		AluControl = 6'b100011; #5;
+		readData1_E = 32'b0010; #5;
+		readData2_E = 32'b0011; #5;
+		$display("Salida esperada, zero = 0");
+		$display("zero = %0d", zero_E);
+		`assert(zero_E, 0)
+		
 //		AluSrc = 0; #5;
 //		AluControl = 6'b100000; #5; // add
 //		readData1_E = 32'b0001; #5;

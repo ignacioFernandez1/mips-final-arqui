@@ -27,6 +27,8 @@ module alu
           6'b101010: out = d0 < d1; // slt (<)
           default: out = {N_BITS{1'b0}};
         endcase
+        if (out == 0) zero = 1;
+        else zero = 0;
       end
   
 endmodule
