@@ -10,9 +10,9 @@ module dmem
   always_ff @(posedge clk)
     begin
       // Write
-      if (clk && MemWrite && !MemRead) dataMemory[memAddr] <= writeData;
+      if (clk && MemWrite && !MemRead) dataMemory[memAddr] = writeData;
       // Read
-      if (clk && MemRead && !MemWrite) readData <= dataMemory[memAddr];
+      if (clk && MemRead && !MemWrite) readData = dataMemory[memAddr];
     end
     
  endmodule  
