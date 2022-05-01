@@ -2,7 +2,7 @@
 
 
 module fetch
-  #(parameter N = 64)
+  #(parameter N = 32)
   (input logic PCSrc, clk, reset,
    input logic [N-1:0] PCBranch,
    output logic [N-1:0] imem_addr);
@@ -15,7 +15,7 @@ module fetch
     begin
       pc_in = PCSrc ? PCBranch : adder_out;
       adder_a = pc_out;
-      adder_b = { {N-3{1'b0}}, 3'b100 };
+      adder_b = 4; 
       imem_addr = pc_out;
     end
 endmodule

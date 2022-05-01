@@ -1,4 +1,6 @@
 
+// falta multiplexor para wa3
+
 module decode 
     #(parameter N = 32)
     (input logic regWrite, clk,
