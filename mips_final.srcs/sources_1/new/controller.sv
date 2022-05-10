@@ -6,8 +6,6 @@ module controller
      output logic [2:0] ALUOp
     );
     
-    always_comb
-        begin
-            
-        end
+    controlUnit cu(OpcodeD, FuncD, CTL_D);
+
 endmodule
