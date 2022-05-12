@@ -27,7 +27,7 @@ module alu
     input logic [N_BITS-1:0]d0, 
     input logic [N_BITS-1:0]d1,
     input logic [3:0] ALUControl, 
-    input logic [5:0] shamt, 
+    input logic [4:0] shamt, 
     output logic [N_BITS-1:0]out,
     output logic zero
   );

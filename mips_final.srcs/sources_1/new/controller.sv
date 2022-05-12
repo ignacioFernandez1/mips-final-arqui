@@ -5,7 +5,7 @@ module controller
      output logic RegDst, ALUSrc, Mem2Reg, RegWrite, MemRead, MemWrite, Branch,
      output logic [2:0] ALUOp
     );
-    
-    controlUnit cu(OpcodeD, FuncD, CTL_D);
+    logic ctl;
+    controlUnit cu(opcode, func, ctl);
 
 endmodule
