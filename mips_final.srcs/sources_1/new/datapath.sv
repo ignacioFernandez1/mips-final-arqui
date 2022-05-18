@@ -1,6 +1,7 @@
 import common::*;
 
 // IF-ID
+`define IF_ID_SIZE 64
 `define IF_ID_WIDTH 63:0
 `define IF_ID_PCPLUS4 31:0
 `define IF_ID_INSTRUCTION 63:32
@@ -11,13 +12,14 @@ import common::*;
 `define IF_ID_RT 52:48
 
 // ID-EX
+`define ID_EX_SIZE 156
 `define ID_EX_WIDTH 155:0
 `define ID_EX_SHAMT 4:0
 `define ID_EX_RD 9:5
 `define ID_EX_RT 14:10
 `define ID_EX_READDATA2 46:15
 `define ID_EX_READDATA1 78:47
-`define ID_EX_READDATA1 110:79
+`define ID_EX_SIGNEXT 110:79
 `define ID_EX_PCPLUS4 142:111
 `define ID_EX_REGDST 144:143
 `define ID_EX_MEM2REG 146:145
@@ -28,10 +30,35 @@ import common::*;
 `define ID_EX_ALUCTL 154:151
 `define ID_EX_BRANCH 155
 
-// MEM-WB
-`define MEM_WB_WIDTH nose
-`define MEM_WB_WA3 4:0
+// EX-MEM
+`define EX_MEM_SIZE 140
+`define EX_MEM_WIDTH 139:0
+`define EX_MEM_PCPLUS4 31:0
+`define EX_MEM_WA3 36:32
+`define EX_MEM_WRITEDATA 68:37
+`define EX_MEM_ALURESULT 100:69
+`define EX_MEM_MEMWRITE 101
+`define EX_MEM_PCBRANCH 133:102
+`define EX_MEM_BRANCH 134
+`define EX_MEM_ZERO 135
+`define EX_MEM_MEMREAD 136
+`define EX_MEM_REGWRITE 137
+`define EX_MEM_MEM2REG 139:138
 
+// MEM-WB
+`define MEM_WB_SIZE 103
+`define MEM_WB_WIDTH 102:0
+`define MEM_WB_PCPLUS4 31:0
+`define MEM_WB_WA3 36:32
+`define MEM_WB_ALURESULT 68:37
+`define MEM_WB_READDATA 100:69
+`define MEM_WB_MEM2REG 101:100
+`define MEM_WB_REGWRITE 102
+
+
+
+			.d({qEX_MEM[`EX_MEM_REGWRITE], qEX_MEM[`EX_MEM_MEM2REG], readData_M, 
+				qEX_MEM[`EX_MEM_ALURESULT], qEX_MEM[`EX_MEM_WA3], qEX_MEM[`EX_MEM_PCPLUS4]}),
 
 
 // DATAPATH
@@ -45,31 +72,32 @@ module datapath #(parameter N = 32)
     logic PCSrc;
 	logic [N-1:0] PCBranch_E, aluResult_E, writeData_E, writeData3; 
 	logic [N-1:0] signExt_D, readData1_D, readData2_D;
+	logic [N-1:0] readData_M
 	logic [4:0] wa3;
 	logic zero_E;
 	logic [`IF_ID_WIDTH] qIF_ID;
 	logic [`ID_EX_WIDTH] qID_EX;
-	logic [202:0] qEX_MEM;
-	logic [134:0] qMEM_WB;
+	logic [`EX_MEM_WIDTH] qEX_MEM;
+	logic [`MEM_WB_WIDTH] qMEM_WB;
 	
 	fetch 	FETCH 	(.PCSrc(PCSrc),
                     .clk(clk),
                     .reset(reset),
-                    .PCBranch(qEX_MEM[197:134]),   // TODO: y aca que wey
+                    .PCBranch(qEX_MEM[`EX_MEM_PCBRANCH]), 
                     .imem_addr(imem_addr));								
 					
 	
-	flopr 	#(64)		IF_ID 	(.clk(clk),
-                                .reset(reset), 
-                                .d({instruction, imem_addr}),
-                                .q(qIF_ID));
+	flopr 	#(`IF_ID_SIZE)		IF_ID 	(.clk(clk),
+										.reset(reset), 
+										.d({instruction, imem_addr}),
+										.q(qIF_ID));
 
     assign opcode = qIF_ID[`IF_ID_OPCODE]
     assign func = qIF_ID[`IF_ID_RTYPEFUNC]
 	
 
 	decode  DECODE 	(.clk(clk),	
-					.regWrite(qMEM_WB[134]),  // TODO: regWrite salida de wb
+					.regWrite(qMEM_WB[`MEM_WB_REGWRITE]),
 					.regDst(ctl[`CTL_REGDST]),
 					.writeData3(writeData3),
 					.instr(qIF_ID[`IF_ID_INSTRUCTION]),
@@ -79,56 +107,59 @@ module datapath #(parameter N = 32)
 					.readData2(readData2_D));		
 																									
 									
-	flopr 	#(271)	ID_EX 	(.clk(clk),
-							.reset(reset), 
-							.d({ctl[`CTL_BRANCH], ctl[`CTL_ALUCTL], ctl[`CTL_ALUSRC], ctl[`CTL_REGWRITE], ctl[`CTL_MEMWRITE], 
-								ctl[`CTL_MEMREAD], ctl[`CTL_MEM2REG],	ctl[`CTL_REGDST], 
-								qIF_ID[`IF_ID_PCPLUS4], signExt_D, readData1_D, readData2_D, qIF_ID[`IF_ID_RT], 
-								qIF_ID[`IF_ID_RD], qIF_ID[`IF_ID_SHAMT]}),
-							.q(qID_EX));
-	
-	// hasta aca								
-	execute  EXECUTE 	(.AluSrc(qID_EX[270]),
-										.AluControl(qID_EX[269:266]),
-										.PC_E(qID_EX[260:197]), 
-										.signImm_E(qID_EX[196:133]), 
-										.readData1_E(qID_EX[132:69]), 
-										.readData2_E(qID_EX[68:5]), 
-										.PCBranch_E(PCBranch_E), 
-										.aluResult_E(aluResult_E), 
-										.writeData_E(writeData_E), 
-										.zero_E(zero_E));											
+	flopr 	#(`ID_EX_SIZE)	ID_EX 	(.clk(clk),
+									.reset(reset), 
+									.d({ctl[`CTL_BRANCH], ctl[`CTL_ALUCTL], ctl[`CTL_ALUSRC], ctl[`CTL_REGWRITE], 
+										ctl[`CTL_MEMWRITE], ctl[`CTL_MEMREAD], ctl[`CTL_MEM2REG],	ctl[`CTL_REGDST], 
+										qIF_ID[`IF_ID_PCPLUS4], signExt_D, readData1_D, readData2_D, qIF_ID[`IF_ID_RT], 
+										qIF_ID[`IF_ID_RD], qIF_ID[`IF_ID_SHAMT]}),
+									.q(qID_EX));
+
+
+	execute  EXECUTE 	(.AluSrc(qID_EX[`ID_EX_ALUSRC]),
+						.AluControl(qID_EX[`ID_EX_ALUCTL]),
+						.shamt(qID_EX[`ID_EX_SHAMT]), 
+						.PC(qID_EX[`ID_EX_PCPLUS4]), 
+						.signImm(qID_EX[`ID_EX_SIGNEXT]), 
+						.readData1(qID_EX[`ID_EX_READDATA1]),
+						.readData2(qID_EX[`ID_EX_READDATA2]) 
+						.PCBranch(PCBranch_E), 
+						.aluResult_E(aluResult_E), 
+						.writeData_E(writeData_E), 
+						.zero_E(zero_E));											
 											
 	mux4 #(5)       mux(qID_EX[`ID_EX_RT], qID_EX[`ID_EX_RD], 5'd31, 0, qID_EX[`ID_EX_REGDST], wa3);
-									
-	flopr 	#(203)	EX_MEM 	(.clk(clk),
+
+
+	flopr 	#(`EX_MEM_SIZE)	 EX_MEM 	(.clk(clk),
 										.reset(reset), 
-										.d({qID_EX[265:261], PCBranch_E, zero_E, aluResult_E, writeData_E, qID_EX[4:0]}),
+										.d({qID_EX[`ID_EX_MEM2REG], qID_EX[`ID_EX_REGWRITE], qID_EX[`ID_EX_MEMREAD], 
+											zero_E, qID_EX[`ID_EX_BRANCH], PCBranch_E, qID_EX[`ID_EX_MEMWRITE], aluResult_E, 
+											writeData_E, wa3, qID_EX[`ID_EX_PCPLUS4]}),
 										.q(qEX_MEM));	
 
 										
-	memory				MEMORY	(.Branch_W(qEX_MEM[202]), 
-										.zero_W(qEX_MEM[133]), 
-										.PCSrc_W(PCSrc));
-			
+	memory	MEMORY	(.clk(clk),
+					.branch(qEX_MEM[`EX_MEM_BRANCH]),
+					.zero(qEX_MEM[`EX_MEM_ZERO]),
+					.memWrite(qEX_MEM[`EX_MEM_MEMWRITE]),
+					.memRead(qEX_MEM[`EX_MEM_MEMREAD]),
+					.aluResult(qEX_MEM[`EX_MEM_ALURESULT]),
+					.writeData(qEX_MEM[`EX_MEM_WRITEDATA]),
+					.PCSrc(PCSrc),
+					.readData(readData_M));
 	
-	// Salida de señales a Data Memory
-	assign DM_writeData = qEX_MEM[68:5];
-	assign DM_addr = qEX_MEM[132:69];
-	
-	// Salida de señales de control:
-	assign DM_writeEnable = qEX_MEM[200];
-	assign DM_readEnable = qEX_MEM[201];
-	
-	flopr 	#(135)	MEM_WB 	(.clk(clk),
-										.reset(reset), 
-										.d({qEX_MEM[199:198], qEX_MEM[132:69],	DM_readData, qEX_MEM[4:0]}),
-										.q(qMEM_WB));
+	flopr 	#(`MEM_WB_SIZE)	MEM_WB 	(.clk(clk),
+									.reset(reset), 
+									.d({qEX_MEM[`EX_MEM_REGWRITE], qEX_MEM[`EX_MEM_MEM2REG], readData_M, 
+										qEX_MEM[`EX_MEM_ALURESULT], qEX_MEM[`EX_MEM_WA3], qEX_MEM[`EX_MEM_PCPLUS4]}),
+									.q(qMEM_WB));
 	
 	
-	writeback #(64) 	WRITEBACK (.aluResult_W(qMEM_WB[132:69]), 
-										.DM_readData_W(qMEM_WB[68:5]), 
-										.memtoReg(qMEM_WB[133]), 
-										.writeData3_W(writeData3));		
+	writeback 	WRITEBACK (.aluResult(qMEM_WB[`MEM_WB_ALURESULT]), 
+							.dmemReadData(qMEM_WB[`MEM_WB_READDATA]), 
+							.memtoReg(qMEM_WB[`MEM_WB_MEM2REG]),
+							.pcPlus4(qMEM_WB[`MEM_WB_PCPLUS4]),
+							.writeData3(writeData3));		
 		
 endmodule

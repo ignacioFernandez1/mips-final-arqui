@@ -1,6 +1,6 @@
 
 module dmem
-  (input logic clk, MemWrite, MemRead,
+  (input logic clk, memWrite, memRead,
    input logic [31:0] memAddr, writeData,
    output logic [31:0] readData);
 
@@ -10,9 +10,9 @@ module dmem
   always_ff @(posedge clk)
     begin
       // Write
-      if (MemWrite && !MemRead) dataMemory[memAddr] = writeData;
+      if (memWrite && !memRead) dataMemory[memAddr] = writeData;
       // Read
-      if (MemRead && !MemWrite) readData = dataMemory[memAddr];
+      if (memRead && !memWrite) readData = dataMemory[memAddr];
     end
     
  endmodule  
