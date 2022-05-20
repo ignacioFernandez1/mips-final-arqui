@@ -13,7 +13,7 @@ module ALUDec
         ctl = `ALU_ADDU;
         case (opcode)
             `OP_SPECIAL: // R-type
-                case (Func)
+                case (func)
                     `FUNC_SLL: ctl = `ALU_SLL;
                     `FUNC_SRL: ctl = `ALU_SRL;
                     `FUNC_SRA: ctl = `ALU_SRA;

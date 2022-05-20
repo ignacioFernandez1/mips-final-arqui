@@ -9,7 +9,7 @@ module execute
 
   logic [N-1:0] adder_a, adder_b, adder_out, alu_a, alu_b,
                alu_out;
-  logic [5:0] alu_control;
+  logic [3:0] alu_control;
   logic alu_zero;  
 
   adder #(N) Add(adder_a, adder_b, adder_out);

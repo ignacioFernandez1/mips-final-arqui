@@ -46,19 +46,14 @@ import common::*;
 `define EX_MEM_MEM2REG 139:138
 
 // MEM-WB
-`define MEM_WB_SIZE 103
-`define MEM_WB_WIDTH 102:0
+`define MEM_WB_SIZE 104
+`define MEM_WB_WIDTH 103:0
 `define MEM_WB_PCPLUS4 31:0
 `define MEM_WB_WA3 36:32
 `define MEM_WB_ALURESULT 68:37
 `define MEM_WB_READDATA 100:69
-`define MEM_WB_MEM2REG 101:100
-`define MEM_WB_REGWRITE 102
-
-
-
-			.d({qEX_MEM[`EX_MEM_REGWRITE], qEX_MEM[`EX_MEM_MEM2REG], readData_M, 
-				qEX_MEM[`EX_MEM_ALURESULT], qEX_MEM[`EX_MEM_WA3], qEX_MEM[`EX_MEM_PCPLUS4]}),
+`define MEM_WB_MEM2REG 102:101
+`define MEM_WB_REGWRITE 103
 
 
 // DATAPATH
@@ -72,7 +67,7 @@ module datapath #(parameter N = 32)
     logic PCSrc;
 	logic [N-1:0] PCBranch_E, aluResult_E, writeData_E, writeData3; 
 	logic [N-1:0] signExt_D, readData1_D, readData2_D;
-	logic [N-1:0] readData_M
+	logic [N-1:0] readData_M;
 	logic [4:0] wa3;
 	logic zero_E;
 	logic [`IF_ID_WIDTH] qIF_ID;
@@ -92,8 +87,8 @@ module datapath #(parameter N = 32)
 										.d({instruction, imem_addr}),
 										.q(qIF_ID));
 
-    assign opcode = qIF_ID[`IF_ID_OPCODE]
-    assign func = qIF_ID[`IF_ID_RTYPEFUNC]
+    assign opcode = qIF_ID[`IF_ID_OPCODE];
+    assign func = qIF_ID[`IF_ID_RTYPEFUNC];
 	
 
 	decode  DECODE 	(.clk(clk),	
@@ -122,13 +117,13 @@ module datapath #(parameter N = 32)
 						.PC(qID_EX[`ID_EX_PCPLUS4]), 
 						.signImm(qID_EX[`ID_EX_SIGNEXT]), 
 						.readData1(qID_EX[`ID_EX_READDATA1]),
-						.readData2(qID_EX[`ID_EX_READDATA2]) 
+						.readData2(qID_EX[`ID_EX_READDATA2]), 
 						.PCBranch(PCBranch_E), 
-						.aluResult_E(aluResult_E), 
-						.writeData_E(writeData_E), 
-						.zero_E(zero_E));											
+						.aluResult(aluResult_E), 
+						.writeData(writeData_E), 
+						.zero(zero_E));											
 											
-	mux4 #(5)       mux(qID_EX[`ID_EX_RT], qID_EX[`ID_EX_RD], 5'd31, 0, qID_EX[`ID_EX_REGDST], wa3);
+	mux4 #(5)       mux(qID_EX[`ID_EX_RT], qID_EX[`ID_EX_RD], 5'd31, 5'd0, qID_EX[`ID_EX_REGDST], wa3);
 
 
 	flopr 	#(`EX_MEM_SIZE)	 EX_MEM 	(.clk(clk),

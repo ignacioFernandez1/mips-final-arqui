@@ -5,7 +5,7 @@ module decode
     #(parameter N = 32)
     (input logic regWrite, clk,
     input logic [1:0] regDst,
-	input logic [4:0] wa3
+	input logic [4:0] wa3,
     input logic [N-1:0] writeData3, instr,
 	output logic [N-1:0] signExt, readData1, readData2 
 	);		

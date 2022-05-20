@@ -19,8 +19,8 @@ module imem
     always_comb
      begin 
         if (op == READ && addr > 63) q = 0;
-        else if(op == READ && addr < 63) q = rom[addr];
-        if (op == WRITE && addr < 63) rom[addr] = i;
+        else if(op == READ && addr < 63) q = rom[addr/4];
+        if (op == WRITE && addr < 63) rom[addr/4] = i;
     end
   
 
