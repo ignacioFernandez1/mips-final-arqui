@@ -28,7 +28,7 @@ module datapath_tb();
         op_in = 0;
         #10
         
-        // sUWU f3, f1, f0: 
+        // SUBU f3, f1, f0: 
         op_in = 1;
         imem_addr = 32'd4;
         inst_in = 32'b00000000001000000001100000100011;#10  

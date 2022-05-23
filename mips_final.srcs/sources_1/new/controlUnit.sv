@@ -14,6 +14,8 @@ module controlUnit
 
         ctl = 0;
         ctl[`CTL_ALUCTL] = ALUCtl;
+        ctl[`CTL_PCSRC] = `PCSRC_PCPLUS4;
+        ctl[`CTL_BRANCH] = `BRANCH_NTAKEN_CTL;
 
         case (opcode)
         
@@ -27,14 +29,16 @@ module controlUnit
                         `FUNC_JR:
                             begin
                                 ctl[`CTL_REGWRITE] = 0;
-                                ctl[`CTL_BRANCH] = 1;
+                                ctl[`CTL_BRANCH] = `BRANCH_TAKEN_CTL;
+                                ctl[`CTL_PCSRC] = `PCSRC_JUMPREG;
                             end
 
                         `FUNC_JALR:
                             begin
                                 ctl[`CTL_MEM2REG] = `REGWRITE_PCPLUS4;
                                 ctl[`CTL_REGDST] = `REGDST_31;
-                                ctl[`CTL_BRANCH] = 1;
+                                ctl[`CTL_BRANCH] = `BRANCH_TAKEN_CTL;
+                                ctl[`CTL_PCSRC] = `PCSRC_JUMPREG;
                             end
 
                         default: ;
@@ -42,34 +46,20 @@ module controlUnit
                     endcase
                 end
             
-            // `OP_BEQ:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_RT;
-            //         ctl[`CTL_BRANCH] = `BRANCH_BEQ;
-            //         ctl[`CTL_PCSRC] = `PCSRC_BRANCH;
-            //     end
-            // `OP_BNE:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_RT;
-            //         ctl[`CTL_BRANCH] = `BRANCH_BNE;
-            //         ctl[`CTL_PCSRC] = `PCSRC_BRANCH;
-            //     end
-            // `OP_BLEZ:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_RT;
-            //         ctl[`CTL_BRANCH] = `BRANCH_BLEZ;
-            //         ctl[`CTL_PCSRC] = `PCSRC_BRANCH;
-            //     end
-            // `OP_BGTZ:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_RT;
-            //         ctl[`CTL_BRANCH] = `BRANCH_BGTZ;
-            //         ctl[`CTL_PCSRC] = `PCSRC_BRANCH;
-            //     end
+            `OP_BEQ:
+                begin
+                    ctl[`CTL_ALUSRC] = 0;
+                    ctl[`CTL_BRANCH] = `BRANCH_EQ_CTL;
+                    // ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
+                    // ctl[`CTL_ALUSRCB] = `ALUSRCB_RT;
+                end
+           `OP_BNE:
+               begin
+                   ctl[`CTL_ALUSRC] = 0;
+                   ctl[`CTL_BRANCH] = `BRANCH_NEQ_CTL;
+                //    ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
+                //    ctl[`CTL_ALUSRCB] = `ALUSRCB_RT;
+               end
 
             // `OP_ADDI, `OP_ADDIU, `OP_SLTI, `OP_SLTIU, `OP_LUI:
             //     begin

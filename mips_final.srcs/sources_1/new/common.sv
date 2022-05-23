@@ -74,16 +74,17 @@ package common;
 `define FUNC_SLT 6'b101010
 
 // ctl unit
-`define WIDTH_CTL_BUS 12:0
+`define WIDTH_CTL_BUS 15:0
 
 `define CTL_ALUCTL 3:0
 `define CTL_ALUSRC 4
 `define CTL_REGWRITE 5
 `define CTL_MEMWRITE 6
 `define CTL_MEMREAD 7
-`define CTL_BRANCH 8
-`define CTL_MEM2REG 10:9
-`define CTL_REGDST 12:11
+`define CTL_BRANCH 9:8
+`define CTL_MEM2REG 11:10
+`define CTL_REGDST 13:12
+`define CTL_PCSRC 15:14
 
 // decode write address mux
 `define REGDST_RT 2'b00
@@ -95,4 +96,15 @@ package common;
 `define REGWRITE_ALUOUT 2'b01
 `define REGWRITE_PCPLUS4 2'b10
 
+// branch compare
+`define BRANCH_EQ_CTL 2'b11
+`define BRANCH_NEQ_CTL 2'b10
+`define BRANCH_TAKEN_CTL 2'b01
+`define BRANCH_NTAKEN_CTL 2'b00
+
+// branch pcsrc
+`define PCSRC_JUMPREG 2'b11
+`define PCSRC_JUMPIMM 2'b10
+`define PCSRC_BRANCH 2'b01
+`define PCSRC_PCPLUS4 2'b00
 endpackage

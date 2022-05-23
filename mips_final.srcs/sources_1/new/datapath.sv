@@ -10,10 +10,12 @@ import common::*;
 `define IF_ID_SHAMT 42:38
 `define IF_ID_RD 47:43
 `define IF_ID_RT 52:48
+`define IF_ID_TOPPCPLUS4 31:28
+`define IF_ID_INSTIMM 57:32
 
 // ID-EX
-`define ID_EX_SIZE 156
-`define ID_EX_WIDTH 155:0
+`define ID_EX_SIZE 157
+`define ID_EX_WIDTH 156:0
 `define ID_EX_SHAMT 4:0
 `define ID_EX_RD 9:5
 `define ID_EX_RT 14:10
@@ -28,22 +30,22 @@ import common::*;
 `define ID_EX_REGWRITE 149
 `define ID_EX_ALUSRC 150
 `define ID_EX_ALUCTL 154:151
-`define ID_EX_BRANCH 155
+`define ID_EX_BRANCH 156:155
 
 // EX-MEM
-`define EX_MEM_SIZE 140
-`define EX_MEM_WIDTH 139:0
+`define EX_MEM_SIZE 141
+`define EX_MEM_WIDTH 140:0
 `define EX_MEM_PCPLUS4 31:0
 `define EX_MEM_WA3 36:32
 `define EX_MEM_WRITEDATA 68:37
 `define EX_MEM_ALURESULT 100:69
 `define EX_MEM_MEMWRITE 101
 `define EX_MEM_PCBRANCH 133:102
-`define EX_MEM_BRANCH 134
-`define EX_MEM_ZERO 135
-`define EX_MEM_MEMREAD 136
-`define EX_MEM_REGWRITE 137
-`define EX_MEM_MEM2REG 139:138
+`define EX_MEM_BRANCH 135:134
+`define EX_MEM_ZERO 136
+`define EX_MEM_MEMREAD 137
+`define EX_MEM_REGWRITE 138
+`define EX_MEM_MEM2REG 140:139
 
 // MEM-WB
 `define MEM_WB_SIZE 104
@@ -65,7 +67,8 @@ module datapath #(parameter N = 32)
                     output logic [5:0] opcode, func); // opcode and func used in control unit 				
 					
     logic PCSrc;
-	logic [N-1:0] PCBranch_E, aluResult_E, writeData_E, writeData3; 
+	logic compare;
+	logic [N-1:0] PCBranch_D, aluResult_E, writeData_E, writeData3, PCTarget; 
 	logic [N-1:0] signExt_D, readData1_D, readData2_D;
 	logic [N-1:0] readData_M;
 	logic [4:0] wa3;
@@ -78,7 +81,7 @@ module datapath #(parameter N = 32)
 	fetch 	FETCH 	(.PCSrc(PCSrc),
                     .clk(clk),
                     .reset(reset),
-                    .PCBranch(qEX_MEM[`EX_MEM_PCBRANCH]), 
+                    .PCBranch(PCTarget), 
                     .imem_addr(imem_addr));								
 					
 	
@@ -94,14 +97,20 @@ module datapath #(parameter N = 32)
 	decode  DECODE 	(.clk(clk),	
 					.regWrite(qMEM_WB[`MEM_WB_REGWRITE]),
 					.regDst(ctl[`CTL_REGDST]),
+					.PC(qIF_ID[`IF_ID_PCPLUS4]),
 					.writeData3(writeData3),
 					.instr(qIF_ID[`IF_ID_INSTRUCTION]),
 					.wa3(qMEM_WB[`MEM_WB_WA3]), // instruccion que sale de wb flopr	
 					.signExt(signExt_D), 
 					.readData1(readData1_D),
-					.readData2(readData2_D));		
-																									
-									
+					.readData2(readData2_D),
+					.PCBranch(PCBranch_D));		
+
+	// branch
+	assign compare = readData1_D == readData2_D;
+	mux4 #(1) pcSrcMux (.d0(0), .d1(1), .d2(~compare), .d3(compare), .s(ctl[`CTL_BRANCH]), .y(PCSrc));
+	mux4 #(32) branchMux (.d0(qIF_ID[`IF_ID_PCPLUS4]), .d1(PCBranch_D), .d2({qIF_ID[`IF_ID_TOPPCPLUS4], qIF_ID[`IF_ID_INSTIMM], 2'b0}), .d3(readData1_D), .s(ctl[`CTL_PCSRC]), .y(PCTarget));
+		
 	flopr 	#(`ID_EX_SIZE)	ID_EX 	(.clk(clk),
 									.reset(reset), 
 									.d({ctl[`CTL_BRANCH], ctl[`CTL_ALUCTL], ctl[`CTL_ALUSRC], ctl[`CTL_REGWRITE], 
@@ -118,7 +127,6 @@ module datapath #(parameter N = 32)
 						.signImm(qID_EX[`ID_EX_SIGNEXT]), 
 						.readData1(qID_EX[`ID_EX_READDATA1]),
 						.readData2(qID_EX[`ID_EX_READDATA2]), 
-						.PCBranch(PCBranch_E), 
 						.aluResult(aluResult_E), 
 						.writeData(writeData_E), 
 						.zero(zero_E));											
@@ -129,14 +137,12 @@ module datapath #(parameter N = 32)
 	flopr 	#(`EX_MEM_SIZE)	 EX_MEM 	(.clk(clk),
 										.reset(reset), 
 										.d({qID_EX[`ID_EX_MEM2REG], qID_EX[`ID_EX_REGWRITE], qID_EX[`ID_EX_MEMREAD], 
-											zero_E, qID_EX[`ID_EX_BRANCH], PCBranch_E, qID_EX[`ID_EX_MEMWRITE], aluResult_E, 
+											zero_E, qID_EX[`ID_EX_BRANCH], PCBranch_D, qID_EX[`ID_EX_MEMWRITE], aluResult_E, 
 											writeData_E, wa3, qID_EX[`ID_EX_PCPLUS4]}),
 										.q(qEX_MEM));	
 
 										
 	memory	MEMORY	(.clk(clk),
-					.branch(qEX_MEM[`EX_MEM_BRANCH]),
-					.zero(qEX_MEM[`EX_MEM_ZERO]),
 					.memWrite(qEX_MEM[`EX_MEM_MEMWRITE]),
 					.memRead(qEX_MEM[`EX_MEM_MEMREAD]),
 					.aluResult(qEX_MEM[`EX_MEM_ALURESULT]),
