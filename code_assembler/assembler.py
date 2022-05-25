@@ -390,6 +390,12 @@ def parse_line(line: str):
 def get_register_number(reg: str):
     return int(re.findall(r'\d+', reg)[0])
 
+def number_as_unsigned(n: int, bits: int):
+    s = bin(n & int("1"*bits, 2))[2:]
+    binary = ("{0:0>%s}" % (bits)).format(s)
+    return int(binary, 2)
+    
+
 if __name__ == "__main__":
     instructions = []
 
@@ -413,9 +419,13 @@ if __name__ == "__main__":
                 if a in ["rd", "rt", "rs"]:
                     print("\t", a, get_register_number(args[values[a]]))
                     values[a] = get_register_number(args[values[a]])
-                else:
+                elif op_type["optype"] == I_TYPE:
                     print("\t", a, int(args[values[a]]))
-                    values[a] = int(args[values[a]])
+                    values[a] = number_as_unsigned(int(args[values[a]]), 16)
+                elif op_type["optype"] == J_TYPE:
+                    print("\t", a, int(args[values[a]]))
+                    values[a] = number_as_unsigned(int(args[values[a]]), 26)
+
 
             instructions.append(f.format(**values)) 
 
