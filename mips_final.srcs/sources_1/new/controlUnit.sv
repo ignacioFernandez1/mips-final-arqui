@@ -21,9 +21,10 @@ module controlUnit
         
             `OP_SPECIAL: 
                 begin
-                    ctl[`CTL_ALUSRC] = 0;
+                    ctl[`CTL_ALUSRC] = `ALUSCR_REG;
                     ctl[`CTL_REGWRITE] = 1;
                     ctl[`CTL_REGDST] = 1;
+                    ctl[`CTL_MEM2REG] = `REGWRITE_ALUOUT;
 
                     case (func)
                         `FUNC_JR:
@@ -48,52 +49,40 @@ module controlUnit
             
             `OP_BEQ:
                 begin
-                    ctl[`CTL_ALUSRC] = 0;
+                    ctl[`CTL_ALUSRC] = `ALUSCR_REG;
                     ctl[`CTL_BRANCH] = `BRANCH_EQ_CTL;
-                    // ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-                    // ctl[`CTL_ALUSRCB] = `ALUSRCB_RT;
+                    ctl[`CTL_PCSRC] = `PCSRC_BRANCH;
                 end
            `OP_BNE:
                begin
-                   ctl[`CTL_ALUSRC] = 0;
+                   ctl[`CTL_ALUSRC] = `ALUSCR_REG;
                    ctl[`CTL_BRANCH] = `BRANCH_NEQ_CTL;
-                //    ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-                //    ctl[`CTL_ALUSRCB] = `ALUSRCB_RT;
+                   ctl[`CTL_PCSRC] = `PCSRC_BRANCH;
                end
 
-            // `OP_ADDI, `OP_ADDIU, `OP_SLTI, `OP_SLTIU, `OP_LUI:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_IMM;
-                        
-            //         ctl[`CTL_REGWRITE] = 1;
-            //         ctl[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_ALU;
-            //         ctl[`CTL_REGDST] = `REGDST_ITYPE;
-            //     end
-
-            // `OP_ANDI, `OP_ORI, `OP_XORI: 
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_IMMU;
-                        
-            //         ctl[`CTL_REGWRITE] = 1;
-            //         ctl[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_ALU;
-            //         ctl[`CTL_REGDST] = `REGDST_ITYPE;
-            //     end
+            `OP_ADDI, `OP_SLTI, `OP_LUI, `OP_ANDI, `OP_ORI, `OP_XORI:
+                begin
+                    ctl[`CTL_ALUSRC] = `ALUSCR_INM;
+                    ctl[`CTL_REGWRITE] = 1;
+                    ctl[`CTL_MEM2REG] = `REGWRITE_ALUOUT;
+                    ctl[`CTL_REGDST] = `REGDST_RT;
+                end
             
-            // `OP_MUL:
-            //     begin
-            //         if (Func == `FUNC_MUL)//MUL
-            //         begin
-            //             ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //             ctl[`CTL_ALUSRCB] = `ALUSRCB_RT;
-                        
-            //             ctl[`CTL_REGWRITE] = 1;
-            //             ctl[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_ALU;
-            //             ctl[`CTL_REGDST] = `REGDST_RTYPE;
-            //         end
-            //     end
+            `OP_J:
+                begin
+                    ctl[`CTL_BRANCH] = `BRANCH_TAKEN_CTL;
+                    ctl[`CTL_PCSRC] = `PCSRC_JUMPIMM;
+                end
             
+            `OP_JAL:
+                begin
+                    ctl[`CTL_REGWRITE] = 1;
+                    ctl[`CTL_MEM2REG] = `REGWRITE_PCPLUS4;//PC + 4
+                    ctl[`CTL_REGDST] = `REGDST_31;
+                    
+                    ctl[`CTL_BRANCH] = `BRANCH_TAKEN_CTL;
+                    ctl[`CTL_PCSRC] = `PCSRC_JUMPIMM;
+                end
             // `OP_LB:
             //     begin
             //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
@@ -181,19 +170,6 @@ module controlUnit
                         
             //         ctl[`CTL_MEMWRITE] = 1;
             //         ctl[`CTL_MEMWIDTH] = `MEMWIDTH_32;
-            //     end
-            // `OP_J:
-            //     begin
-            //         ctl[`CTL_PCSRC] = `PCSRC_JUMPIMM;
-            //     end
-            
-            // `OP_JAL:
-            //     begin
-            //         ctl[`CTL_REGWRITE] = 1;
-            //         ctl[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_PCPLUS4;//PC + 4
-            //         ctl[`CTL_REGDST] = `REGDST_RA;
-                    
-            //         ctl[`CTL_PCSRC] = `PCSRC_JUMPIMM;
             //     end
             default: ;
         endcase

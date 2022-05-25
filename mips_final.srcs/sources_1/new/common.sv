@@ -56,6 +56,9 @@ package common;
 `define ALU_SLT 4'b1110
 `define ALU_SLTU 4'b1111
 
+`define ALUSCR_REG 0
+`define ALUSCR_INM 1
+
 // Opcode of instructions
 `define FUNC_SLL 6'b000000
 `define FUNC_SRL 6'b000010
@@ -92,8 +95,8 @@ package common;
 `define REGDST_31 2'b10
 
 // writeback mux
-`define REGWRITE_MEMREAD 2'b00
-`define REGWRITE_ALUOUT 2'b01
+`define REGWRITE_ALUOUT 2'b00
+`define REGWRITE_MEMREAD 2'b01
 `define REGWRITE_PCPLUS4 2'b10
 
 // branch compare
