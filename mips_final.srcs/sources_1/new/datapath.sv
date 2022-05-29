@@ -1,5 +1,3 @@
-import common::*;
-
 // IF-ID
 `define IF_ID_SIZE 64
 `define IF_ID_WIDTH 63:0
@@ -14,8 +12,8 @@ import common::*;
 `define IF_ID_INSTIMM 57:32
 
 // ID-EX
-`define ID_EX_SIZE 157
-`define ID_EX_WIDTH 156:0
+`define ID_EX_SIZE 160
+`define ID_EX_WIDTH 159:0
 `define ID_EX_SHAMT 4:0
 `define ID_EX_RD 9:5
 `define ID_EX_RT 14:10
@@ -31,10 +29,12 @@ import common::*;
 `define ID_EX_ALUSRC 150
 `define ID_EX_ALUCTL 154:151
 `define ID_EX_BRANCH 156:155
+`define ID_EX_MEMWIDTH 158:157
+`define ID_EX_MEMSIGN 159
 
 // EX-MEM
-`define EX_MEM_SIZE 141
-`define EX_MEM_WIDTH 140:0
+`define EX_MEM_SIZE 144
+`define EX_MEM_WIDTH 143:0
 `define EX_MEM_PCPLUS4 31:0
 `define EX_MEM_WA3 36:32
 `define EX_MEM_WRITEDATA 68:37
@@ -46,6 +46,8 @@ import common::*;
 `define EX_MEM_MEMREAD 137
 `define EX_MEM_REGWRITE 138
 `define EX_MEM_MEM2REG 140:139
+`define EX_MEM_MEMWIDTH 142:141
+`define EX_MEM_MEMSIGN 143
 
 // MEM-WB
 `define MEM_WB_SIZE 104
@@ -113,7 +115,7 @@ module datapath #(parameter N = 32)
 		
 	flopr 	#(`ID_EX_SIZE)	ID_EX 	(.clk(clk),
 									.reset(reset), 
-									.d({ctl[`CTL_BRANCH], ctl[`CTL_ALUCTL], ctl[`CTL_ALUSRC], ctl[`CTL_REGWRITE], 
+									.d({ctl[`CTL_MEMSIGN], ctl[`CTL_MEMWIDTH], ctl[`CTL_BRANCH], ctl[`CTL_ALUCTL], ctl[`CTL_ALUSRC], ctl[`CTL_REGWRITE], 
 										ctl[`CTL_MEMWRITE], ctl[`CTL_MEMREAD], ctl[`CTL_MEM2REG],	ctl[`CTL_REGDST], 
 										qIF_ID[`IF_ID_PCPLUS4], signExt_D, readData1_D, readData2_D, qIF_ID[`IF_ID_RT], 
 										qIF_ID[`IF_ID_RD], qIF_ID[`IF_ID_SHAMT]}),
@@ -136,7 +138,7 @@ module datapath #(parameter N = 32)
 
 	flopr 	#(`EX_MEM_SIZE)	 EX_MEM 	(.clk(clk),
 										.reset(reset), 
-										.d({qID_EX[`ID_EX_MEM2REG], qID_EX[`ID_EX_REGWRITE], qID_EX[`ID_EX_MEMREAD], 
+										.d({qID_EX[`ID_EX_MEMSIGN], qID_EX[`ID_EX_MEMWIDTH], qID_EX[`ID_EX_MEM2REG], qID_EX[`ID_EX_REGWRITE], qID_EX[`ID_EX_MEMREAD], 
 											zero_E, qID_EX[`ID_EX_BRANCH], PCBranch_D, qID_EX[`ID_EX_MEMWRITE], aluResult_E, 
 											writeData_E, wa3, qID_EX[`ID_EX_PCPLUS4]}),
 										.q(qEX_MEM));	
@@ -145,6 +147,8 @@ module datapath #(parameter N = 32)
 	memory	MEMORY	(.clk(clk),
 					.memWrite(qEX_MEM[`EX_MEM_MEMWRITE]),
 					.memRead(qEX_MEM[`EX_MEM_MEMREAD]),
+					.memSign(qEX_MEM[`EX_MEM_MEMSIGN]),
+					.memWidth(qEX_MEM[`EX_MEM_MEMWIDTH]),
 					.aluResult(qEX_MEM[`EX_MEM_ALURESULT]),
 					.writeData(qEX_MEM[`EX_MEM_WRITEDATA]),
 					.PCSrc(PCSrc),

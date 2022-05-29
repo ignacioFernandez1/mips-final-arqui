@@ -83,94 +83,100 @@ module controlUnit
                     ctl[`CTL_BRANCH] = `BRANCH_TAKEN_CTL;
                     ctl[`CTL_PCSRC] = `PCSRC_JUMPIMM;
                 end
-            // `OP_LB:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_IMM;
+            `OP_LB:
+                begin
+                    ctl[`CTL_ALUSRC] = `ALUSCR_INM;
                         
-            //         ctl[`CTL_REGWRITE] = 1;
-            //         ctl[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_MEMORY;
-            //         ctl[`CTL_REGDST] = `REGDST_ITYPE;
+                    ctl[`CTL_REGWRITE] = 1;
+                    ctl[`CTL_MEMREAD] = 1;
+                    ctl[`CTL_MEM2REG] = `REGWRITE_MEMREAD;
+                    ctl[`CTL_REGDST] = `REGDST_RT;
                     
-            //         ctl[`CTL_MEMSIGNED] = 1;
-            //         ctl[`CTL_MEMWIDTH] = `MEMWIDTH_8;
-            //     end
-            // `OP_LH:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_IMM;
+                    ctl[`CTL_MEMSIGN] = 1;
+                    ctl[`CTL_MEMWIDTH] = `MEMWIDTH_8;
+                end
+            `OP_LH:
+                begin
+                    ctl[`CTL_ALUSRC] = `ALUSCR_INM;
                         
-            //         ctl[`CTL_REGWRITE] = 1;
-            //         ctl[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_MEMORY;
-            //         ctl[`CTL_REGDST] = `REGDST_ITYPE;
+                    ctl[`CTL_REGWRITE] = 1;
+                    ctl[`CTL_MEMREAD] = 1;
+                    ctl[`CTL_MEM2REG] = `REGWRITE_MEMREAD;
+                    ctl[`CTL_REGDST] = `REGDST_RT;
                     
-            //         ctl[`CTL_MEMSIGNED] = 1;
-            //         ctl[`CTL_MEMWIDTH] = `MEMWIDTH_16;
-            //     end
-            // `OP_LW:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_IMM;
+                    ctl[`CTL_MEMSIGN] = 1;
+                    ctl[`CTL_MEMWIDTH] = `MEMWIDTH_16;
+                end
+            `OP_LW:
+                begin
+                    ctl[`CTL_ALUSRC] = `ALUSCR_INM;
                         
-            //         ctl[`CTL_REGWRITE] = 1;
-            //         ctl[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_MEMORY;
-            //         ctl[`CTL_REGDST] = `REGDST_ITYPE;
+                    ctl[`CTL_REGWRITE] = 1;
+                    ctl[`CTL_MEMREAD] = 1;
+                    ctl[`CTL_MEM2REG] = `REGWRITE_MEMREAD;
+                    ctl[`CTL_REGDST] = `REGDST_RT;
+                    
+                    ctl[`CTL_MEMSIGN] = 1;
+                    ctl[`CTL_MEMWIDTH] = `MEMWIDTH_32;
+                end
+            `OP_LBU:
+                begin
+                    ctl[`CTL_ALUSRC] = `ALUSCR_INM;
+                        
+                    ctl[`CTL_REGWRITE] = 1;
+                    ctl[`CTL_MEMREAD] = 1;
+                    ctl[`CTL_MEM2REG] = `REGWRITE_MEMREAD;
+                    ctl[`CTL_REGDST] = `REGDST_RT;
+                    
+                    ctl[`CTL_MEMSIGN] = 0;
+                    ctl[`CTL_MEMWIDTH] = `MEMWIDTH_8;
+                end
+            `OP_LHU:
+                begin
+                    ctl[`CTL_ALUSRC] = `ALUSCR_INM;
+                        
+                    ctl[`CTL_REGWRITE] = 1;
+                    ctl[`CTL_MEMREAD] = 1;
+                    ctl[`CTL_MEM2REG] = `REGWRITE_MEMREAD;
+                    ctl[`CTL_REGDST] = `REGDST_RT;
+                    
+                    ctl[`CTL_MEMSIGN] = 0;
+                    ctl[`CTL_MEMWIDTH] = `MEMWIDTH_16;
+                end
+            `OP_LWU:
+                begin
+                    ctl[`CTL_ALUSRC] = `ALUSCR_INM;
+                        
+                    ctl[`CTL_REGWRITE] = 1;
+                    ctl[`CTL_MEMREAD] = 1;
+                    ctl[`CTL_MEM2REG] = `REGWRITE_MEMREAD;
+                    ctl[`CTL_REGDST] = `REGDST_RT;
+                    
+                    ctl[`CTL_MEMSIGN] = 0;
+                    ctl[`CTL_MEMWIDTH] = `MEMWIDTH_32;
+                end
 
-            //         ctl[`CTL_MEMSIGNED] = 1;
-            //         ctl[`CTL_MEMWIDTH] = `MEMWIDTH_32;
-            //     end
-            // `OP_LBU:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_IMM;
+            `OP_SB:
+                begin
+                    ctl[`CTL_ALUSRC] = `ALUSCR_INM;
                         
-            //         ctl[`CTL_REGWRITE] = 1;
-            //         ctl[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_MEMORY;
-            //         ctl[`CTL_REGDST] = `REGDST_ITYPE;
-                    
-            //         ctl[`CTL_MEMSIGNED] = 0;
-            //         ctl[`CTL_MEMWIDTH] = `MEMWIDTH_8;
+                    ctl[`CTL_MEMWRITE] = 1;
+                    ctl[`CTL_MEMWIDTH] = `MEMWIDTH_8;
+                end
+            `OP_SH:
+                begin
+                    ctl[`CTL_ALUSRC] = `ALUSCR_INM;
                         
-            //     end
-            // `OP_LHU:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_IMM;
+                    ctl[`CTL_MEMWRITE] = 1;
+                    ctl[`CTL_MEMWIDTH] = `MEMWIDTH_16;
+                end
+            `OP_SW:
+                begin
+                    ctl[`CTL_ALUSRC] = `ALUSCR_INM;
                         
-            //         ctl[`CTL_REGWRITE] = 1;
-            //         ctl[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_MEMORY;
-            //         ctl[`CTL_REGDST] = `REGDST_ITYPE;
-                    
-            //         ctl[`CTL_MEMSIGNED] = 0;
-            //         ctl[`CTL_MEMWIDTH] = `MEMWIDTH_16;
-                        
-            //         ctl[`CTL_PCSRC] = `PCSRC_PCPLUS4;
-            //     end
-
-            // `OP_SB:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_IMM;
-                        
-            //         ctl[`CTL_MEMWRITE] = 1;
-            //         ctl[`CTL_MEMWIDTH] = `MEMWIDTH_8;
-            //     end
-            // `OP_SH:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_IMM;
-                        
-            //         ctl[`CTL_MEMWRITE] = 1;
-            //         ctl[`CTL_MEMWIDTH] = `MEMWIDTH_16;
-            //     end
-            // `OP_SW:
-            //     begin
-            //         ctl[`CTL_ALUSRCA] = `ALUSRCA_RS;
-            //         ctl[`CTL_ALUSRCB] = `ALUSRCB_IMM;
-                        
-            //         ctl[`CTL_MEMWRITE] = 1;
-            //         ctl[`CTL_MEMWIDTH] = `MEMWIDTH_32;
-            //     end
+                    ctl[`CTL_MEMWRITE] = 1;
+                    ctl[`CTL_MEMWIDTH] = `MEMWIDTH_32;
+                end
             default: ;
         endcase
     end
