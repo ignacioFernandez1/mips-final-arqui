@@ -2,84 +2,76 @@ import common::*;
 
 module datapath_tb();
     
-    // Imem I/O
-    logic [31:0] inst_in;
-    logic op_in; // 0 = escritura de instruccion | 1 = lectura de instruccion 
-    logic [31:0] inst_out;
     
-    // Datapath I/O
+    // TOP I/O
     logic reset, clk;
-    logic [`WIDTH_CTL_BUS] ctl;
-    logic [31:0] imem_addr;
-    logic [5:0] opcode, func;
     
-    imem imem(.i(inst_in), .addr(imem_addr), .op(op_in), .q(inst_out));
-    controlUnit cu(.opcode(opcode), .func(func), .ctl(ctl));
-    datapath dp(.reset(reset), .clk(clk), .ctl(ctl), .instruction(inst_out), .imem_addr(imem_addr), .opcode(opcode), .func(func));
-    
+    top top (.clk_in(clk), .i_reset(reset));
+
     initial begin
         $display("Starting test");
         reset = 0;
+        clk = 1;
         #10
         // ADDU f2, f1, f0: 3
-        op_in = 1;
-        imem_addr = 0;
-        inst_in = 32'b00000000001000000001000000100001;#10  
-        op_in = 0;
+        top.op_in = 1;
+        top.imem_addr = 0;
+        top.inst_in = 32'b00000000001000000001000000100001;#10  
+        top.op_in = 0;
         #10
         
         // SUBU f3, f1, f0: 1
-        op_in = 1;
-        imem_addr = 32'd4;
-        inst_in = 32'b00000000001000000001100000100011;#10  
-        op_in = 0;
+        top.op_in = 1;
+        top.imem_addr = 32'd4;
+        top.inst_in = 32'b00000000001000000001100000100011;#10  
+        top.op_in = 0;
         #10
         
         // SW f1, 0(f10)
-        op_in = 1;
-        imem_addr = 32'd8;
-        inst_in = 32'b10101101010000010000000000000000;#10  
-        op_in = 0;
+        top.op_in = 1;
+        top.imem_addr = 32'd8;
+        top.inst_in = 32'b10101101010000010000000000000000;#10  
+        top.op_in = 0;
         #10
                   
         // SH f1, 4(f10)
-        op_in = 1;
-        imem_addr = 32'd12;
-        inst_in = 32'b10100101010000010000000000000100;#10  
-        op_in = 0;
+        top.op_in = 1;
+        top.imem_addr = 32'd12;
+        top.inst_in = 32'b10100101010000010000000000000100;#10  
+        top.op_in = 0;
         #10
 
         // SB f1, 8(f10)
-        op_in = 1;
-        imem_addr = 32'd16;
-        inst_in = 32'b10100001010000010000000000001000;#10  
-        op_in = 0;
+        top.op_in = 1;
+        top.imem_addr = 32'd16;
+        top.inst_in = 32'b10100001010000010000000000001000;#10  
+        top.op_in = 0;
         #10
 
         // LW f5, 0(f10)
-        op_in = 1;
-        imem_addr = 32'd20;
-        inst_in = 32'b10001101010001010000000000000000;#10  
-        op_in = 0;
+        top.op_in = 1;
+        top.imem_addr = 32'd20;
+        top.inst_in = 32'b10001101010001010000000000000000;#10  
+        top.op_in = 0;
         #10 
 
         // LHU f6, 0(f10)
-        op_in = 1;
-        imem_addr = 32'd24;
-        inst_in = 32'b10010101010001100000000000000000;#10  
-        op_in = 0;
+        top.op_in = 1;
+        top.imem_addr = 32'd24;
+        top.inst_in = 32'b10010101010001100000000000000000;#10  
+        top.op_in = 0;
         #10 
         
         // LH f7, 0(f10)
-        op_in = 1;
-        imem_addr = 32'd28;
-        inst_in = 32'b10000101010001110000000000000000;#10  
-        op_in = 0;
+        top.op_in = 1;
+        top.imem_addr = 32'd28;
+        top.inst_in = 32'b10000101010001110000000000000000;#10  
+        top.op_in = 0;
         #10  
 
         // // LBU f6, 0(f10)
         // op_in = 1;
-        // imem_addr = 32'd24;
+        // top.imem_addr = 32'd24;
         // inst_in = 32'b10010001010001100000000000000000;#10  
         // op_in = 0;
         // #10 
@@ -142,15 +134,14 @@ module datapath_tb();
         // #10
         
         #20
-        op_in = 1;
+        top.op_in = 1;
         reset = 1;
         #10
         reset = 0;
-        #10
-        clk = 1;
+
         
         
-        #460
+        #2000
         $finish;
     end
 
