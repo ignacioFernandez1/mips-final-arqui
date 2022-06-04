@@ -7,7 +7,7 @@ module regfile
 
   // inicializacion de los Flip-Flops
   logic [31:0] registers [0:31] = {
-              32'h0000_0001, 32'hFFFF_FFFF, 
+              32'h0000_0001, 32'h0000_0002, 
               32'h0000_0000, 32'h0000_0000, 
               32'h0000_0000, 32'h0000_0000, 
               32'h0000_0000, 32'h0000_0000, 

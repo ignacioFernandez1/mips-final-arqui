@@ -8,12 +8,13 @@
 `define IF_ID_SHAMT 42:38
 `define IF_ID_RD 47:43
 `define IF_ID_RT 52:48
+`define IF_ID_RS 57:53
 `define IF_ID_TOPPCPLUS4 31:28
 `define IF_ID_INSTIMM 57:32
 
 // ID-EX
-`define ID_EX_SIZE 160
-`define ID_EX_WIDTH 159:0
+`define ID_EX_SIZE 165
+`define ID_EX_WIDTH 164:0
 `define ID_EX_SHAMT 4:0
 `define ID_EX_RD 9:5
 `define ID_EX_RT 14:10
@@ -31,6 +32,7 @@
 `define ID_EX_BRANCH 156:155
 `define ID_EX_MEMWIDTH 158:157
 `define ID_EX_MEMSIGN 159
+`define ID_EX_RS 164:160
 
 // EX-MEM
 `define EX_MEM_SIZE 144
@@ -79,6 +81,7 @@ module datapath #(parameter N = 32)
 	logic [`ID_EX_WIDTH] qID_EX;
 	logic [`EX_MEM_WIDTH] qEX_MEM;
 	logic [`MEM_WB_WIDTH] qMEM_WB;
+	logic [`HCTL_WIDTH] hctl;
 	
 	fetch 	FETCH 	(.PCSrc(PCSrc),
                     .clk(clk),
@@ -115,7 +118,8 @@ module datapath #(parameter N = 32)
 		
 	flopr 	#(`ID_EX_SIZE)	ID_EX 	(.clk(clk),
 									.reset(reset), 
-									.d({ctl[`CTL_MEMSIGN], ctl[`CTL_MEMWIDTH], ctl[`CTL_BRANCH], ctl[`CTL_ALUCTL], ctl[`CTL_ALUSRC], ctl[`CTL_REGWRITE], 
+									.d({qIF_ID[`IF_ID_RS], ctl[`CTL_MEMSIGN], ctl[`CTL_MEMWIDTH], ctl[`CTL_BRANCH], 
+										ctl[`CTL_ALUCTL], ctl[`CTL_ALUSRC], ctl[`CTL_REGWRITE], 
 										ctl[`CTL_MEMWRITE], ctl[`CTL_MEMREAD], ctl[`CTL_MEM2REG],	ctl[`CTL_REGDST], 
 										qIF_ID[`IF_ID_PCPLUS4], signExt_D, readData1_D, readData2_D, qIF_ID[`IF_ID_RT], 
 										qIF_ID[`IF_ID_RD], qIF_ID[`IF_ID_SHAMT]}),
@@ -165,6 +169,17 @@ module datapath #(parameter N = 32)
 							.dmemReadData(qMEM_WB[`MEM_WB_READDATA]), 
 							.memtoReg(qMEM_WB[`MEM_WB_MEM2REG]),
 							.pcPlus4(qMEM_WB[`MEM_WB_PCPLUS4]),
-							.writeData3(writeData3));		
+							.writeData3(writeData3));
+
+	hazardUnit HUNIT (.RsD(qIF_ID[`IF_ID_RS]),
+					 .RtD(qIF_ID[`IF_ID_RT]),
+					 .RsE(qID_EX[`ID_EX_RS]),
+					 .RtE(qID_EX[`ID_EX_RT]),
+					 .writeRegE(wa3),
+					 .writeRegM(qEX_MEM[`EX_MEM_WA3]),
+					 .writeRegW(qMEM_WB[`MEM_WB_WA3]),
+					 .regWriteM(qEX_MEM[`EX_MEM_REGWRITE]),
+					 .regWriteW(qMEM_WB[`MEM_WB_REGWRITE]),
+					 .HCTL(hctl));
 		
 endmodule

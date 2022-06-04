@@ -116,4 +116,32 @@ package common;
     `define MEMWIDTH_8 2'b10
     `define MEMWIDTH_16 2'b01
     `define MEMWIDTH_32 2'b00
+
+    `define HCTL_WIDTH 31: 0
+
+    `define HCTL_STALLF 0
+    `define HCTL_STALLD 1
+    `define HCTL_STALLE 2
+    `define HCTL_STALLM 3
+    `define HCTL_STALLW 4
+
+    `define HCTL_FLUSHF 5
+    `define HCTL_FLUSHD 6
+    `define HCTL_FLUSHE 7
+    `define HCTL_FLUSHM 8
+    `define HCTL_FLUSHW 9
+
+    // Forward from Execute to Decode
+    `define HCTL_FORWARDAD 10
+    `define HCTL_FORWARDBD 11
+
+    // Forward from Memory or Writeback to Execute
+    `define HCTL_FORWARDAE 13: 12
+    `define HCTL_FORWARDBE 15: 14
+    `define FORWARDE_WIDTH 1: 0
+
+    `define FORWARDE_NONE 2'b00
+    `define FORWARDE_FROM_MEMORY 2'b01
+    `define FORWARDE_FROM_WRITEBACK 2'b10
+
 endpackage

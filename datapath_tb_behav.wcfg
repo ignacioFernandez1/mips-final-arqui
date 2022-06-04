@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="datapath_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="datapath_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="2.665767 us"></ZoomStartTime>
+      <ZoomEndTime time="12.288540 us"></ZoomEndTime>
+      <Cursor1Time time="4.560000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="154"></NameColumnWidth>
+      <ValueColumnWidth column_width="73"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="12" />
+   <wvobject fp_name="/datapath_tb/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/HUNIT/HCTL[13]" type="logic">
+      <obj_property name="ElementShortName">[13]</obj_property>
+      <obj_property name="ObjectShortName">[13]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/HUNIT/HCTL[12]" type="logic">
+      <obj_property name="ElementShortName">[12]</obj_property>
+      <obj_property name="ObjectShortName">[12]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/HUNIT/HCTL[15]" type="logic">
+      <obj_property name="ElementShortName">[15]</obj_property>
+      <obj_property name="ObjectShortName">[15]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/HUNIT/HCTL[14]" type="logic">
+      <obj_property name="ElementShortName">[14]</obj_property>
+      <obj_property name="ObjectShortName">[14]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/HUNIT/RsE_ne0" type="logic">
+      <obj_property name="ElementShortName">RsE_ne0</obj_property>
+      <obj_property name="ObjectShortName">RsE_ne0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/HUNIT/RtE_ne0" type="logic">
+      <obj_property name="ElementShortName">RtE_ne0</obj_property>
+      <obj_property name="ObjectShortName">RtE_ne0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/HUNIT/RsE" type="array">
+      <obj_property name="ElementShortName">RsE[4:0]</obj_property>
+      <obj_property name="ObjectShortName">RsE[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/HUNIT/RtE" type="array">
+      <obj_property name="ElementShortName">RtE[4:0]</obj_property>
+      <obj_property name="ObjectShortName">RtE[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/HUNIT/regWriteM" type="logic">
+      <obj_property name="ElementShortName">regWriteM</obj_property>
+      <obj_property name="ObjectShortName">regWriteM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/i_clock" type="logic">
+      <obj_property name="ElementShortName">i_clock</obj_property>
+      <obj_property name="ObjectShortName">i_clock</obj_property>
+   </wvobject>
+</wave_config>
