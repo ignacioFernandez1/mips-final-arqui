@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="2.665767 us"></ZoomStartTime>
-      <ZoomEndTime time="12.288540 us"></ZoomEndTime>
-      <Cursor1Time time="4.560000 us"></Cursor1Time>
+      <ZoomStartTime time="4,179.983 ns"></ZoomStartTime>
+      <ZoomEndTime time="5,797.984 ns"></ZoomEndTime>
+      <Cursor1Time time="4,339.983 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="154"></NameColumnWidth>
-      <ValueColumnWidth column_width="73"></ValueColumnWidth>
+      <ValueColumnWidth column_width="65"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="12" />
+   <WVObjectSize size="16" />
    <wvobject fp_name="/datapath_tb/reset" type="logic">
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
@@ -67,5 +67,25 @@
    <wvobject fp_name="/datapath_tb/top/i_clock" type="logic">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/muxRD1_FW/d0" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">d0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">d0[31:0]</obj_property>
+      <obj_property name="label">readData1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/readData1_FW" type="array">
+      <obj_property name="ElementShortName">readData1_FW[31:0]</obj_property>
+      <obj_property name="ObjectShortName">readData1_FW[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/muxRD2_FW/d0" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">d0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">d0[31:0]</obj_property>
+      <obj_property name="label">readData2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/datapath_tb/top/dp/readData2_FW" type="array">
+      <obj_property name="ElementShortName">readData2_FW[31:0]</obj_property>
+      <obj_property name="ObjectShortName">readData2_FW[31:0]</obj_property>
    </wvobject>
 </wave_config>

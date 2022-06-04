@@ -82,6 +82,7 @@ module datapath #(parameter N = 32)
 	logic [`EX_MEM_WIDTH] qEX_MEM;
 	logic [`MEM_WB_WIDTH] qMEM_WB;
 	logic [`HCTL_WIDTH] hctl;
+	logic [N-1:0] readData1_FW, readData2_FW;
 	
 	fetch 	FETCH 	(.PCSrc(PCSrc),
                     .clk(clk),
@@ -125,14 +126,16 @@ module datapath #(parameter N = 32)
 										qIF_ID[`IF_ID_RD], qIF_ID[`IF_ID_SHAMT]}),
 									.q(qID_EX));
 
+	mux4 muxRD1_FW(.d0(qID_EX[`ID_EX_READDATA1]), .d1(qEX_MEM[`EX_MEM_ALURESULT]), .d2(writeData3), .d3(32'b0), .s(hctl[`HCTL_FORWARDAE]), .y(readData1_FW));
+	mux4 muxRD2_FW(.d0(qID_EX[`ID_EX_READDATA2]), .d1(qEX_MEM[`EX_MEM_ALURESULT]), .d2(writeData3), .d3(32'b0), .s(hctl[`HCTL_FORWARDBE]), .y(readData2_FW));
 
 	execute  EXECUTE 	(.AluSrc(qID_EX[`ID_EX_ALUSRC]),
 						.AluControl(qID_EX[`ID_EX_ALUCTL]),
 						.shamt(qID_EX[`ID_EX_SHAMT]), 
 						.PC(qID_EX[`ID_EX_PCPLUS4]), 
 						.signImm(qID_EX[`ID_EX_SIGNEXT]), 
-						.readData1(qID_EX[`ID_EX_READDATA1]),
-						.readData2(qID_EX[`ID_EX_READDATA2]), 
+						.readData1(readData1_FW),
+						.readData2(readData2_FW), 
 						.aluResult(aluResult_E), 
 						.writeData(writeData_E), 
 						.zero(zero_E));											

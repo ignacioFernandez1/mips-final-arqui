@@ -20,54 +20,62 @@ module datapath_tb();
         top.op_in = 0;
         #10
         
-        // SUBU f3, f2, f0: 1
+        // ADDU f3, f2, f0: 4 (fw desde memory)
         top.op_in = 1;
         top.imem_addr = 32'd4;
-        top.inst_in = 32'b00000000010000000001100000100011;#10  
+        top.inst_in = 32'b00000000010000000001100000100001;#10  
         top.op_in = 0;
         #10
         
-        // // SW f1, 0(f10)
-        // top.op_in = 1;
-        // top.imem_addr = 32'd8;
-        // top.inst_in = 32'b10101101010000010000000000000000;#10  
-        // top.op_in = 0;
-        // #10
-                  
-        // // SH f1, 4(f10)
-        // top.op_in = 1;
-        // top.imem_addr = 32'd12;
-        // top.inst_in = 32'b10100101010000010000000000000100;#10  
-        // top.op_in = 0;
-        // #10
-
-        // // SB f1, 8(f10)
-        // top.op_in = 1;
-        // top.imem_addr = 32'd16;
-        // top.inst_in = 32'b10100001010000010000000000001000;#10  
-        // top.op_in = 0;
-        // #10
-
-        // // LW f5, 0(f10)
-        // top.op_in = 1;
-        // top.imem_addr = 32'd20;
-        // top.inst_in = 32'b10001101010001010000000000000000;#10  
-        // top.op_in = 0;
-        // #10 
-
-        // // LHU f6, 0(f10)
-        // top.op_in = 1;
-        // top.imem_addr = 32'd24;
-        // top.inst_in = 32'b10010101010001100000000000000000;#10  
-        // top.op_in = 0;
-        // #10 
+        // ADDU f4, f0, f2: 4 (fw desde w)
+        top.op_in = 1;
+        top.imem_addr = 32'd8;
+        top.inst_in = 32'b00000000000000100010000000100001;#10  
+        top.op_in = 0;
+        #10
         
-        // // LH f7, 0(f10)
-        // top.op_in = 1;
-        // top.imem_addr = 32'd28;
-        // top.inst_in = 32'b10000101010001110000000000000000;#10  
-        // top.op_in = 0;
-        // #10  
+        
+//        // SW f1, 0(f10)
+//        top.op_in = 1;
+//        top.imem_addr = 32'd8;
+//        top.inst_in = 32'b10101101010000010000000000000000;#10  
+//        top.op_in = 0;
+//        #10
+                  
+//        // SH f1, 4(f10)
+//        top.op_in = 1;
+//        top.imem_addr = 32'd12;
+//        top.inst_in = 32'b10100101010000010000000000000100;#10  
+//        top.op_in = 0;
+//        #10
+
+//        // SB f1, 8(f10)
+//        top.op_in = 1;
+//        top.imem_addr = 32'd16;
+//        top.inst_in = 32'b10100001010000010000000000001000;#10  
+//        top.op_in = 0;
+//        #10
+
+//        // LW f5, 0(f10)
+//        top.op_in = 1;
+//        top.imem_addr = 32'd20;
+//        top.inst_in = 32'b10001101010001010000000000000000;#10  
+//        top.op_in = 0;
+//        #10 
+
+//        // LHU f6, 0(f10)
+//        top.op_in = 1;
+//        top.imem_addr = 32'd24;
+//        top.inst_in = 32'b10010101010001100000000000000000;#10  
+//        top.op_in = 0;
+//        #10 
+        
+//        // LH f7, 0(f10)
+//        top.op_in = 1;
+//        top.imem_addr = 32'd28;
+//        top.inst_in = 32'b10000101010001110000000000000000;#10  
+//        top.op_in = 0;
+//        #10  
 
         // // LBU f6, 0(f10)
         // op_in = 1;
