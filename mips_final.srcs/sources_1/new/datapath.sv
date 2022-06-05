@@ -121,7 +121,7 @@ module datapath #(parameter N = 32)
 	// branch
 	mux #(32) readData1Mux (.d0(readData1), .d1(qEX_MEM[`EX_MEM_ALURESULT]), .s(hctl[`HCTL_FORWARDAD]), .y(readData1_FW_D));
 	mux #(32) readData2Mux (.d0(readData2), .d1(qEX_MEM[`EX_MEM_ALURESULT]), .s(hctl[`HCTL_FORWARDBD]), .y(readData2_FW_D));
-	assign compare = readData1_D == readData2_D;
+	assign compare = readData1_FW_D == readData2_FW_D;
 	mux4 #(1) pcSrcMux (.d0(0), .d1(1), .d2(~compare), .d3(compare), .s(ctl[`CTL_BRANCH]), .y(PCSrc));
 	mux4 #(32) branchMux (.d0(qIF_ID[`IF_ID_PCPLUS4]), .d1(PCBranch_D), .d2({qIF_ID[`IF_ID_TOPPCPLUS4], qIF_ID[`IF_ID_INSTIMM], 2'b0}), .d3(readData1_D), .s(ctl[`CTL_PCSRC]), .y(PCTarget));
 		
