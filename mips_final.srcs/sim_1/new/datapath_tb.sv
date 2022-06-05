@@ -149,7 +149,7 @@ module datapath_tb();
 
         
         
-        #2000
+        #5999
         $finish;
     end
 

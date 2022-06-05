@@ -3,12 +3,12 @@
 
 module fetch
   #(parameter N = 32)
-  (input logic PCSrc, clk, reset,
+  (input logic PCSrc, clk, reset, stall
    input logic [N-1:0] PCBranch,
    output logic [N-1:0] imem_addr);
 
   logic [N-1:0] pc_in, pc_out, adder_a, adder_b, adder_out;
-  flopr #(N) PC(clk, reset, pc_in, pc_out);
+  flopr #(N) PC(clk, reset, stall, 0, pc_in, pc_out);
   adder #(N) Add(adder_a, adder_b, adder_out);
 
   always_comb
