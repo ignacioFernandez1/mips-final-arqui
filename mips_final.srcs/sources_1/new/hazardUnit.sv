@@ -30,8 +30,7 @@ import common::*;
 module hazardUnit(
     input [4:0] RsD, RtD, RsE, RtE, 
     input [4:0] writeRegE, writeRegM, writeRegW,
-    input regWriteM, regWriteW,
-    input regWriteE,
+    input regWriteM, regWriteW, regWriteE,
     input memToRegE, memToRegM, branchOrJumpRegD,
     input PCSrc,
     output [`HCTL_WIDTH] HCTL);
@@ -40,6 +39,7 @@ module hazardUnit(
     logic RtD_ne0;
     logic RsE_ne0;
     logic RtE_ne0;
+    logic lwStallD, branchStallD, stallD;
     
     assign RsD_ne0 = RsD != 5'b0;
     assign RtD_ne0 = RtD != 5'b0;
@@ -62,13 +62,13 @@ module hazardUnit(
         : `FORWARDE_NONE;
 
     // si la instruccion en decode usa el mismo registro que el load en execute, hacemos un stall
-    logic lwStallD = memToRegE & (RtE == RsD | RtE == RtD);
+    assign lwStallD = memToRegE & (RtE == RsD | RtE == RtD);
 
-    logic branchStallD = branchOrJumpRegD &
+    assign branchStallD = branchOrJumpRegD &
         (regWriteE & ((RsD_ne0 & writeRegE == RsD) | (RtD_ne0 & writeRegE == RtD))
         |memToRegM & ((RsD_ne0 & writeRegM == RsD) | (RtD_ne0 & writeRegM == RtD)));
     
-    logic stallD = lwStallD | branchStallD;
+    assign stallD = lwStallD | branchStallD;
     assign HCTL[`HCTL_STALLD] = stallD;
     assign HCTL[`HCTL_STALLF] = stallD;
     assign HCTL[`HCTL_FLUSHE] = stallD;

@@ -13,27 +13,61 @@ module datapath_tb();
         reset = 0;
         clk = 1;
         #10
-        // ADDU f2, f1, f0: 3
+        // ADDI f2, f1, 10: 8
         top.op_in = 1;
         top.imem_addr = 0;
-        top.inst_in = 32'b00000000001000000001000000100001;#10  
+        top.inst_in = 32'b00100000001000100000000000001010;#10  
         top.op_in = 0;
         #10
         
-        // ADDU f3, f2, f0: 4 (fw desde memory)
+        // JR f2 (fw desde memory)
         top.op_in = 1;
         top.imem_addr = 32'd4;
-        top.inst_in = 32'b00000000010000000001100000100001;#10  
+        top.inst_in = 32'b00000000010000000000000000001000;#10  
         top.op_in = 0;
         #10
         
-        // ADDU f4, f0, f2: 4 (fw desde w)
+        // ADDU f3, f0, f1: 3 
         top.op_in = 1;
         top.imem_addr = 32'd8;
-        top.inst_in = 32'b00000000000000100010000000100001;#10  
+        top.inst_in = 32'b00000000000000010001100000100001;#10  
+        top.op_in = 0;
+        #10
+
+        // ADDU f3, f0, f1: 3 
+        top.op_in = 1;
+        top.imem_addr = 32'd12;
+        top.inst_in = 32'b00000000000000010010000000100001;#10  
         top.op_in = 0;
         #10
         
+        // ADDU f4, f0, f1: 3 
+        top.op_in = 1;
+        top.imem_addr = 32'd16;
+        top.inst_in = 32'b00000000000000010010100000100001;#10  
+        top.op_in = 0;
+        #10
+
+        // ADDU f5, f0, f1: 3 
+        top.op_in = 1;
+        top.imem_addr = 32'd20;
+        top.inst_in = 32'b00000000000000010011000000100001;#10  
+        top.op_in = 0;
+        #10
+
+        // ADDU f6, f0, f1: 3 
+        top.op_in = 1;
+        top.imem_addr = 32'd24;
+        top.inst_in = 32'b00000000000000010011100000100001;#10  
+        top.op_in = 0;
+        #10
+
+        // ADDU f7, f0, f1: 3 
+        top.op_in = 1;
+        top.imem_addr = 32'd28;
+        top.inst_in = 32'b00000000000000010100000000100001;#10  
+        top.op_in = 0;
+        #10
         
 //        // SW f1, 0(f10)
 //        top.op_in = 1;

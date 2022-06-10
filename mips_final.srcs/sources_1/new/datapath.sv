@@ -90,7 +90,7 @@ module datapath #(parameter N = 32)
 	fetch 	FETCH 	(.PCSrc(PCSrc),
                     .clk(clk),
                     .reset(reset),
-					.stall(~hctl[`HCTL_STALLF]),
+					.enable(~hctl[`HCTL_STALLF]),
                     .PCBranch(PCTarget), 
                     .imem_addr(imem_addr));								
 					
@@ -119,16 +119,16 @@ module datapath #(parameter N = 32)
 					.PCBranch(PCBranch_D));		
 
 	// branch
-	mux #(32) readData1Mux (.d0(readData1), .d1(qEX_MEM[`EX_MEM_ALURESULT]), .s(hctl[`HCTL_FORWARDAD]), .y(readData1_FW_D));
-	mux #(32) readData2Mux (.d0(readData2), .d1(qEX_MEM[`EX_MEM_ALURESULT]), .s(hctl[`HCTL_FORWARDBD]), .y(readData2_FW_D));
+	mux2 #(32) readData1Mux (.d0(readData1_D), .d1(qEX_MEM[`EX_MEM_ALURESULT]), .s(hctl[`HCTL_FORWARDAD]), .y(readData1_FW_D));
+	mux2 #(32) readData2Mux (.d0(readData2_D), .d1(qEX_MEM[`EX_MEM_ALURESULT]), .s(hctl[`HCTL_FORWARDBD]), .y(readData2_FW_D));
 	assign compare = readData1_FW_D == readData2_FW_D;
 	mux4 #(1) pcSrcMux (.d0(0), .d1(1), .d2(~compare), .d3(compare), .s(ctl[`CTL_BRANCH]), .y(PCSrc));
-	mux4 #(32) branchMux (.d0(qIF_ID[`IF_ID_PCPLUS4]), .d1(PCBranch_D), .d2({qIF_ID[`IF_ID_TOPPCPLUS4], qIF_ID[`IF_ID_INSTIMM], 2'b0}), .d3(readData1_D), .s(ctl[`CTL_PCSRC]), .y(PCTarget));
+	mux4 #(32) branchMux (.d0(qIF_ID[`IF_ID_PCPLUS4]), .d1(PCBranch_D), .d2({qIF_ID[`IF_ID_TOPPCPLUS4], qIF_ID[`IF_ID_INSTIMM], 2'b0}), .d3(readData1_FW_D), .s(ctl[`CTL_PCSRC]), .y(PCTarget));
 		
 	flopr 	#(`ID_EX_SIZE)	ID_EX 	(.clk(clk),
 									.reset(reset),
 									.enable(1),
-									.clr(0),  
+									.clr(hctl[`HCTL_FLUSHE]),  
 									.d({qIF_ID[`IF_ID_RS], ctl[`CTL_MEMSIGN], ctl[`CTL_MEMWIDTH], ctl[`CTL_BRANCH], 
 										ctl[`CTL_ALUCTL], ctl[`CTL_ALUSRC], ctl[`CTL_REGWRITE], 
 										ctl[`CTL_MEMWRITE], ctl[`CTL_MEMREAD], ctl[`CTL_MEM2REG],	ctl[`CTL_REGDST], 
@@ -155,8 +155,8 @@ module datapath #(parameter N = 32)
 
 	flopr 	#(`EX_MEM_SIZE)	 EX_MEM 	(.clk(clk),
 										.reset(reset),
-										.enable(~hctl[`HCTL_STALLE]),
-										.clr(hctl[`HCTL_FLUSHE]),  
+										.enable(1),
+										.clr(0),  
 										.d({qID_EX[`ID_EX_MEMSIGN], qID_EX[`ID_EX_MEMWIDTH], qID_EX[`ID_EX_MEM2REG], qID_EX[`ID_EX_REGWRITE], qID_EX[`ID_EX_MEMREAD], 
 											zero_E, qID_EX[`ID_EX_BRANCH], PCBranch_D, qID_EX[`ID_EX_MEMWRITE], aluResult_E, 
 											writeData_E, wa3, qID_EX[`ID_EX_PCPLUS4]}),
@@ -202,6 +202,7 @@ module datapath #(parameter N = 32)
 					 .writeRegW(qMEM_WB[`MEM_WB_WA3]),
 					 .regWriteM(qEX_MEM[`EX_MEM_REGWRITE]),
 					 .regWriteW(qMEM_WB[`MEM_WB_REGWRITE]),
+					 .regWriteE(qID_EX[`ID_EX_REGWRITE]),
 					 .memToRegE(memToRegE),
 					 .memToRegM(memToRegM),
 					 .branchOrJumpRegD(branchOrJumpRegD),

@@ -8,7 +8,7 @@ module flopr
 
   always_ff @(posedge clk, posedge reset)
     if (reset) q <= 0;
-    else if (enable) q <= d;
     else if (clr) q <= 0;
+    else if (enable) q <= d;
 
 endmodule
