@@ -9,11 +9,13 @@ program_args = vars(parser.parse_args())
 R_TYPE = "r_type"
 I_TYPE = "i_type"
 J_TYPE = "j_type"
+HALT = 'halt'
 
 formats = {
     R_TYPE: "{opcode:0>6}{rs:05b}{rt:05b}{rd:05b}{shamt:05b}{funct:0>6}",
     I_TYPE: "{opcode:0>6}{rs:05b}{rt:05b}{inm:016b}",
-    J_TYPE: "{opcode:0>6}{dir:026b}"
+    J_TYPE: "{opcode:0>6}{dir:026b}",
+    HALT: "00000000000000000000000000000000"
 }
 
 ops = {
@@ -377,6 +379,11 @@ ops = {
             }
         }
     },
+    "halt": {
+        "optype": HALT,
+        "args": [],
+        "values": {}
+    },
 }
 
 def parse_line(line: str):
@@ -403,6 +410,7 @@ if __name__ == "__main__":
         lines = f.readlines()
         for l in lines:
             op, args = parse_line(l)
+            op = op.strip()
             print("OP:", op)
             
             op_type = ops[op]
