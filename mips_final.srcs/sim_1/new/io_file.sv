@@ -31,9 +31,9 @@ module io_file();
       clk = 0;
       data = 0;
       code = 1;
-      $monitor("data = %b", data);
       while (code) begin
          code = $fread(data, fd);
+         $display("data = %b", data);
          @(posedge clk);
       end
       $finish;

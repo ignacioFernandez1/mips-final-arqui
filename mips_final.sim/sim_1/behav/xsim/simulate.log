@@ -1,0 +1,36 @@
+Time resolution is 1 ps
+data = 00100000
+data = 00100010
+data = 00000000
+data = 00001010
+data = 00000000
+data = 01000000
+data = 00000000
+data = 00001000
+data = 00000000
+data = 00000001
+data = 00011000
+data = 00100001
+data = 00000000
+data = 00000001
+data = 00100000
+data = 00100001
+data = 00000000
+data = 00000001
+data = 00101000
+data = 00100001
+data = 00000000
+data = 00000001
+data = 00110000
+data = 00100001
+data = 00000000
+data = 00000001
+data = 00111000
+data = 00100001
+data = 00000000
+data = 00000000
+data = 00000000
+data = 00000000
+WARNING: Insufficient data from the input file for $fread
+data = 00000000
+$finish called at time : 3349115 ns : File "C:/Users/nacho/Documents/Facultad/5to/arqui/mips-final-arqui/mips_final.srcs/sim_1/new/top_tb.sv" Line 41

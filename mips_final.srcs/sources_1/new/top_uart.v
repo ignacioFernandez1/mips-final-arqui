@@ -22,45 +22,18 @@
 
 module top_uart(
 
-    input wire i_clock,
-    input wire i_reset,
-    input wire rx_top,
-    output wire tx_top
-    
+    input i_clock, i_reset, rx_top, dtx_ready,
+    input [7:0] dtx,
+    output tx_top, rx_done,
+    output [7:0] drx
     );
     
     //Baud rate I/Os
     wire tick;
 
-    //Rx I/Os
-    wire [7:0] dout;
-    wire rx_done;
-    // wire rx; 
-    
-    //Tx I/Os
-    //wire tx;
-    wire [7:0] din;
-    wire din_ready; 
-    
-    //intf I/Os
-   
-    wire [7:0]data0; 
-    wire [7:0]data1; 
-    wire [5:0]code;
-    
-    //ALU I/Os           
-    wire [7:0]out;    
-
-
     // DUT instantiation 
     baud_rate baud_dut (.i_clock(i_clock),.tick(tick));
-    
-    intf intf_dut (.i_clock(i_clock),.i_reset(i_reset),.data(dout),.data_ready(rx_done),.alu_result(out),.data0(data0),.data1(data1),.code(code),.dout(din),.dout_ready(din_ready));
-  
-    Tx tx_dut (.i_clock(i_clock),.i_reset(i_reset),.tick(tick),.tx(tx_top),.din(din),.din_ready(din_ready));
-    
-    Rx rx_dut (.i_clock(i_clock),.i_reset(i_reset),.tick(tick),.rx(rx_top),.dout(dout),.rx_done(rx_done));
-    
-    alu #(.N_BITS(8)) alu_dut (.d0(data0), .d1(data1), .opcode(code), .out(out));
+    Tx tx_dut (.i_clock(i_clock),.i_reset(i_reset),.tick(tick),.tx(tx_top),.din(dtx),.din_ready(dtx_ready));
+    Rx rx_dut (.i_clock(i_clock),.i_reset(i_reset),.tick(tick),.rx(rx_top),.dout(drx),.rx_done(rx_done));
     
 endmodule

@@ -3,65 +3,112 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="datapath_tb_behav.wdb" id="1">
+      <db_ref path="top_tb_behav.wdb" id="1">
          <top_modules>
-            <top_module name="datapath_tb" />
             <top_module name="glbl" />
+            <top_module name="top_tb" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="3,089.487 ns"></ZoomStartTime>
-      <ZoomEndTime time="7,134.488 ns"></ZoomEndTime>
-      <Cursor1Time time="3,784.487 ns"></Cursor1Time>
+      <ZoomStartTime time="920.754 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,624.861 ns"></ZoomEndTime>
+      <Cursor1Time time="3,349,115.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="154"></NameColumnWidth>
-      <ValueColumnWidth column_width="65"></ValueColumnWidth>
+      <NameColumnWidth column_width="212"></NameColumnWidth>
+      <ValueColumnWidth column_width="70"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="11" />
-   <wvobject fp_name="/datapath_tb/reset" type="logic">
-      <obj_property name="ElementShortName">reset</obj_property>
-      <obj_property name="ObjectShortName">reset</obj_property>
+   <WVObjectSize size="22" />
+   <wvobject fp_name="/top_tb/data" type="array">
+      <obj_property name="ElementShortName">data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/datapath_tb/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/datapath_tb/top/i_clock" type="logic">
+   <wvobject fp_name="/top_tb/i_clock" type="logic">
       <obj_property name="ElementShortName">i_clock</obj_property>
       <obj_property name="ObjectShortName">i_clock</obj_property>
    </wvobject>
-   <wvobject fp_name="/datapath_tb/top/dp/imem_addr" type="array">
-      <obj_property name="ElementShortName">imem_addr[31:0]</obj_property>
-      <obj_property name="ObjectShortName">imem_addr[31:0]</obj_property>
+   <wvobject fp_name="/top_tb/din" type="array">
+      <obj_property name="ElementShortName">din[7:0]</obj_property>
+      <obj_property name="ObjectShortName">din[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/datapath_tb/top/dp/branchMux/y" type="array">
+   <wvobject fp_name="/top_tb/top/du/i_clock" type="logic">
+      <obj_property name="ElementShortName">i_clock</obj_property>
+      <obj_property name="ObjectShortName">i_clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/instr" type="array">
+      <obj_property name="ElementShortName">instr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instr[31:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/state" type="array">
+      <obj_property name="ElementShortName">state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/du_imem_op" type="logic">
+      <obj_property name="ElementShortName">du_imem_op</obj_property>
+      <obj_property name="ObjectShortName">du_imem_op</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/imem_addr_select" type="logic">
+      <obj_property name="ElementShortName">imem_addr_select</obj_property>
+      <obj_property name="ObjectShortName">imem_addr_select</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/du_imem_address" type="array">
+      <obj_property name="ElementShortName">du_imem_address[31:0]</obj_property>
+      <obj_property name="ObjectShortName">du_imem_address[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/du_instr" type="array">
+      <obj_property name="ElementShortName">du_instr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">du_instr[31:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/imem_addr_in/y" type="array">
       <obj_property name="ElementShortName">y[31:0]</obj_property>
       <obj_property name="ObjectShortName">y[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/datapath_tb/top/dp/branchMux/d0" type="array">
-      <obj_property name="ElementShortName">d0[31:0]</obj_property>
-      <obj_property name="ObjectShortName">d0[31:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/imem/addr" type="array">
+      <obj_property name="ElementShortName">addr[5:0]</obj_property>
+      <obj_property name="ObjectShortName">addr[5:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/datapath_tb/top/dp/branchMux/d1" type="array">
-      <obj_property name="ElementShortName">d1[31:0]</obj_property>
-      <obj_property name="ObjectShortName">d1[31:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/imem/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/datapath_tb/top/dp/branchMux/d2" type="array">
-      <obj_property name="ElementShortName">d2[31:0]</obj_property>
-      <obj_property name="ObjectShortName">d2[31:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/imem/op" type="logic">
+      <obj_property name="ElementShortName">op</obj_property>
+      <obj_property name="ObjectShortName">op</obj_property>
    </wvobject>
-   <wvobject fp_name="/datapath_tb/top/dp/branchMux/d3" type="array">
-      <obj_property name="ElementShortName">d3[31:0]</obj_property>
-      <obj_property name="ObjectShortName">d3[31:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/du_clock" type="logic">
+      <obj_property name="ElementShortName">du_clock</obj_property>
+      <obj_property name="ObjectShortName">du_clock</obj_property>
    </wvobject>
-   <wvobject fp_name="/datapath_tb/top/dp/branchMux/s" type="array">
-      <obj_property name="ElementShortName">s[1:0]</obj_property>
-      <obj_property name="ObjectShortName">s[1:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/du/clock_enable" type="logic">
+      <obj_property name="ElementShortName">clock_enable</obj_property>
+      <obj_property name="ObjectShortName">clock_enable</obj_property>
    </wvobject>
-   <wvobject fp_name="/datapath_tb/top/dp/DECODE/registers/registers[2]" type="array">
-      <obj_property name="ElementShortName">[2][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[2][31:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/du/state" type="array">
+      <obj_property name="ElementShortName">state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/imem/q" type="array">
+      <obj_property name="ElementShortName">q[31:0]</obj_property>
+      <obj_property name="ObjectShortName">q[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/imem/addr" type="array">
+      <obj_property name="ElementShortName">addr[5:0]</obj_property>
+      <obj_property name="ObjectShortName">addr[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/FETCH/pc_out" type="array">
+      <obj_property name="ElementShortName">pc_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
 </wave_config>
