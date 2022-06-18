@@ -52,6 +52,7 @@ module debugUnit(
         if (du_instr == 0) begin
             clock_enable <= 1;
             imem_addr_select <= 1;
+            du_imem_op <= IMEM_READ;
             next_state <= STATE_INSTR_FINISHED;
         end
         if (state == STATE_INIT) begin
