@@ -7,11 +7,12 @@ module top_tb();
    integer   code;
    logic i_clock, tick, din_ready, tx;
    logic [7:0] din;
+   logic rx_top;
    
    // TOP I/O
    logic reset;
-   top top (.clk_in(clk), .i_reset(reset), .i_clock(i_clock));
-   Tx txdut(.i_clock(i_clock), .i_reset(reset), .tick(tick), .din(din), .din_ready(din_ready), .tx(top.rx));
+   top top (.clk_in(clk), .i_reset(reset), .i_clock(i_clock), .rx(rx_top));
+   Tx txdut(.i_clock(i_clock), .i_reset(reset), .tick(tick), .din(din), .din_ready(din_ready), .tx(rx_top));
    baud_rate br(.i_clock(i_clock), .tick(tick));
 
    initial begin

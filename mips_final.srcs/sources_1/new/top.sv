@@ -1,7 +1,7 @@
 import common::*;
 
  module top(
-  input logic clk_in, i_reset,
+  input logic clk_in, i_reset, rx,
   output logic i_clock, o_locked
   );
 
@@ -16,7 +16,7 @@ import common::*;
   logic [31:0] inst_out;
   
   // debug unit
-  logic rx, tx, du_clock, du_imem_op, imem_addr_select;
+  logic tx, du_clock, du_imem_op, imem_addr_select;
   logic [31:0] du_imem_address, du_instr;
 
 
