@@ -67,6 +67,10 @@ module datapath #(parameter N = 32)
 					(input logic reset, clk,
 					input logic [`WIDTH_CTL_BUS] ctl,									
 					input logic [N-1:0] instruction,
+					input logic [4:0] debug_read_addr_reg,
+					input logic [31:0] debug_read_addr_mem,
+					output logic [31:0] debug_read_data_reg,
+					output logic [31:0] debug_read_data_mem,
 					output logic [N-1:0] imem_addr,
                     output logic [5:0] opcode, func); // opcode and func used in control unit 				
 					
@@ -116,7 +120,9 @@ module datapath #(parameter N = 32)
 					.signExt(signExt_D), 
 					.readData1(readData1_D),
 					.readData2(readData2_D),
-					.PCBranch(PCBranch_D));		
+					.PCBranch(PCBranch_D),
+					.debug_read_addr(debug_read_addr_reg),
+					.debug_read_data(debug_read_data_reg));		
 
 	// branch
 	mux2 #(32) readData1Mux (.d0(readData1_D), .d1(qEX_MEM[`EX_MEM_ALURESULT]), .s(hctl[`HCTL_FORWARDAD]), .y(readData1_FW_D));
@@ -171,7 +177,9 @@ module datapath #(parameter N = 32)
 					.aluResult(qEX_MEM[`EX_MEM_ALURESULT]),
 					.writeData(qEX_MEM[`EX_MEM_WRITEDATA]),
 					.PCSrc(PCSrc),
-					.readData(readData_M));
+					.readData(readData_M),
+					.debug_read_addr(debug_read_addr_mem),
+					.debug_read_data(debug_read_data_mem));
 	
 	flopr 	#(`MEM_WB_SIZE)	MEM_WB 	(.clk(clk),
 									.reset(reset),

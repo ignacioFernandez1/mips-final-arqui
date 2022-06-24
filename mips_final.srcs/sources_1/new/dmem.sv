@@ -6,19 +6,22 @@
 module dmem
   (input logic clk, memWrite, memRead, memSign,
    input logic [1:0] memWidth,
-   input logic [31:0] memAddr, writeData,
-   output logic [31:0] readData);
+   input logic [31:0] memAddr, writeData, debug_read_addr,
+   output logic [31:0] readData, debug_read_data);
       
   // inicializacion de los Flip-Flops
   logic [31:0] dataMemory [0:255];
   
   logic [31:0] alignedAddr;
+  logic [31:0] debug_alignedAddr;
 
-  assign alignedAddr = memAddr/4; 
+  assign alignedAddr = memAddr/4;
+  assign debug_alignedAddr = debug_read_addr/4;  
 
   always_ff @(posedge clk)
     begin
       // Read
+      debug_read_data = dataMemory[debug_alignedAddr];
       if (memRead && !memWrite)
       begin
         case(memWidth)

@@ -12,8 +12,13 @@ import common::*;
 
 module debugUnit(
     input wire i_clock, i_reset, rx,
+    input logic [31:0] debug_read_data_reg,
+    input logic [31:0] debug_read_data_mem,
+    input logic [31:0] debug_pc,
     output reg tx, du_clock, du_imem_op, imem_addr_select,
-    output reg [31:0] du_imem_address, du_instr
+    output reg [31:0] du_imem_address, du_instr,
+    output logic [4:0] debug_read_addr_reg,
+    output logic [31:0] debug_read_addr_mem
     );
 
     logic dtx_ready, rx_done;
