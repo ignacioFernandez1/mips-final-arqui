@@ -39,7 +39,7 @@ module debugUnit(
     assign du_clock = i_clock & clock_enable;
     
     always @(posedge i_clock) begin
-        if(i_reset) state <= STATE_INIT;
+        if(i_reset) next_state <= STATE_INIT;
         else state <= next_state;
         if (state == STATE_INSTR_WRITE) begin
             i <= 3;
@@ -65,7 +65,7 @@ module debugUnit(
         end
     end
     
-    always_ff @( posedge rx_done ) begin
+    always_ff @( posedge rx_done) begin
         case (state)
             STATE_INIT:
             begin
@@ -88,19 +88,12 @@ module debugUnit(
                 end
                 else  i <= i - 1;
             end
-            STATE_INSTR_WRITE: ;
-            STATE_INSTR_FINISHED: ;
-            default:
+            STATE_INSTR_WRITE:
             begin
-                next_state <= STATE_INSTR_RCV;
-                mode <= drx;
-                instr <= 0;
-                i <= 3;
-                du_imem_op <= IMEM_READ;
-                du_imem_address <= -4;
-                clock_enable <= 0;
-                imem_addr_select <= 0;
+                
             end
+            STATE_INSTR_FINISHED: ;
+            default: next_state <= STATE_INIT;
         endcase
     end
     

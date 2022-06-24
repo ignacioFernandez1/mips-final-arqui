@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000000000 ms"></ZoomStartTime>
-      <ZoomEndTime time="4.045183195 ms"></ZoomEndTime>
-      <Cursor1Time time="0.667540809 ms"></Cursor1Time>
+      <ZoomStartTime time="3,284,601.784 ns"></ZoomStartTime>
+      <ZoomEndTime time="3,284,621.085 ns"></ZoomEndTime>
+      <Cursor1Time time="3,284,605.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="244"></NameColumnWidth>
-      <ValueColumnWidth column_width="118"></ValueColumnWidth>
+      <ValueColumnWidth column_width="106"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="12" />
+   <WVObjectSize size="15" />
    <wvobject fp_name="/top_tb/data" type="array">
       <obj_property name="ElementShortName">data[7:0]</obj_property>
       <obj_property name="ObjectShortName">data[7:0]</obj_property>
@@ -70,5 +70,17 @@
    <wvobject fp_name="/top_tb/top/imem/i" type="array">
       <obj_property name="ElementShortName">i[31:0]</obj_property>
       <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/i_reset" type="logic">
+      <obj_property name="ElementShortName">i_reset</obj_property>
+      <obj_property name="ObjectShortName">i_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/rx_done" type="logic">
+      <obj_property name="ElementShortName">rx_done</obj_property>
+      <obj_property name="ObjectShortName">rx_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/halt_instr_signal" type="logic">
+      <obj_property name="ElementShortName">halt_instr_signal</obj_property>
+      <obj_property name="ObjectShortName">halt_instr_signal</obj_property>
    </wvobject>
 </wave_config>

@@ -1,8 +1,8 @@
 import common::*;
 
  module top(
-  input logic clk_in, i_reset, rx,
-  output logic i_clock, o_locked
+  input logic clk_in, i_reset, rx, du_reset,
+  output logic i_clock, o_locked, halt_instr_signal
   );
 
   
@@ -21,9 +21,11 @@ import common::*;
 
 
   assign i_clock = o_locked & clk_out;
+
+  assign halt_instr_signal = ~(inst_out | 32'b0);
   
   mux2 imem_addr_in(.d0(du_imem_address), .d1(dp_imem_addr), .s(imem_addr_select), .y(imem_addr));
-  debugUnit du(.i_clock(i_clock), .i_reset(i_reset), .rx(rx),
+  debugUnit du(.i_clock(i_clock), .i_reset(du_reset), .rx(rx),
                .tx(tx), .du_clock(du_clock), .du_imem_address(du_imem_address), 
                .du_imem_op(du_imem_op), .imem_addr_select(imem_addr_select), .du_instr(du_instr));
 
