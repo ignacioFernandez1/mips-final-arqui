@@ -1,6 +1,6 @@
 // IF-ID
-`define IF_ID_SIZE 64
-`define IF_ID_WIDTH 63:0
+`define IF_ID_SIZE 65
+`define IF_ID_WIDTH 64:0
 `define IF_ID_PCPLUS4 31:0
 `define IF_ID_INSTRUCTION 63:32
 `define IF_ID_OPCODE 63:58
@@ -11,10 +11,11 @@
 `define IF_ID_RS 57:53
 `define IF_ID_TOPPCPLUS4 31:28
 `define IF_ID_INSTIMM 57:32
+`define IF_ID_HALT 64
 
 // ID-EX
-`define ID_EX_SIZE 165
-`define ID_EX_WIDTH 164:0
+`define ID_EX_SIZE 166
+`define ID_EX_WIDTH 165:0
 `define ID_EX_SHAMT 4:0
 `define ID_EX_RD 9:5
 `define ID_EX_RT 14:10
@@ -33,10 +34,11 @@
 `define ID_EX_MEMWIDTH 158:157
 `define ID_EX_MEMSIGN 159
 `define ID_EX_RS 164:160
+`define ID_EX_HALT 165
 
 // EX-MEM
-`define EX_MEM_SIZE 144
-`define EX_MEM_WIDTH 143:0
+`define EX_MEM_SIZE 145
+`define EX_MEM_WIDTH 144:0
 `define EX_MEM_PCPLUS4 31:0
 `define EX_MEM_WA3 36:32
 `define EX_MEM_WRITEDATA 68:37
@@ -50,16 +52,18 @@
 `define EX_MEM_MEM2REG 140:139
 `define EX_MEM_MEMWIDTH 142:141
 `define EX_MEM_MEMSIGN 143
+`define EX_MEM_HALT 144
 
 // MEM-WB
-`define MEM_WB_SIZE 104
-`define MEM_WB_WIDTH 103:0
+`define MEM_WB_SIZE 105
+`define MEM_WB_WIDTH 104:0
 `define MEM_WB_PCPLUS4 31:0
 `define MEM_WB_WA3 36:32
 `define MEM_WB_ALURESULT 68:37
 `define MEM_WB_READDATA 100:69
 `define MEM_WB_MEM2REG 102:101
 `define MEM_WB_REGWRITE 103
+`define MEM_WB_HALT 104
 
 
 // DATAPATH
@@ -72,6 +76,7 @@ module datapath #(parameter N = 32)
 					output logic [31:0] debug_read_data_reg,
 					output logic [31:0] debug_read_data_mem,
 					output logic [N-1:0] imem_addr,
+					output logic halt_instr_signal,
                     output logic [5:0] opcode, func); // opcode and func used in control unit 				
 					
     logic PCSrc;
@@ -90,7 +95,8 @@ module datapath #(parameter N = 32)
 	logic [N-1:0] readData1_FW_D, readData2_FW_D;
 	//hazard
 	logic memToRegE, memToRegM, branchOrJumpRegD;
-	
+	logic halt_instr_D;
+
 	fetch 	FETCH 	(.PCSrc(PCSrc),
                     .clk(clk),
                     .reset(reset),
@@ -98,17 +104,19 @@ module datapath #(parameter N = 32)
                     .PCBranch(PCTarget), 
                     .imem_addr(imem_addr));								
 					
-	
+	assign halt_instr_D = (instruction == 32'b0);
+
 	flopr 	#(`IF_ID_SIZE)		IF_ID 	(.clk(clk),
 										.reset(reset),
 										.enable(~hctl[`HCTL_STALLD]),
 										.clr(hctl[`HCTL_FLUSHD]), 
-										.d({instruction, imem_addr}),
+										.d({halt_instr_D, instruction, imem_addr}),
 										.q(qIF_ID));
 
     assign opcode = qIF_ID[`IF_ID_OPCODE];
     assign func = qIF_ID[`IF_ID_RTYPEFUNC];
 	
+
 
 	decode  DECODE 	(.clk(clk),	
 					.regWrite(qMEM_WB[`MEM_WB_REGWRITE]),
@@ -122,7 +130,8 @@ module datapath #(parameter N = 32)
 					.readData2(readData2_D),
 					.PCBranch(PCBranch_D),
 					.debug_read_addr(debug_read_addr_reg),
-					.debug_read_data(debug_read_data_reg));		
+					.debug_read_data(debug_read_data_reg));	
+	
 
 	// branch
 	mux2 #(32) readData1Mux (.d0(readData1_D), .d1(qEX_MEM[`EX_MEM_ALURESULT]), .s(hctl[`HCTL_FORWARDAD]), .y(readData1_FW_D));
@@ -135,7 +144,7 @@ module datapath #(parameter N = 32)
 									.reset(reset),
 									.enable(1),
 									.clr(hctl[`HCTL_FLUSHE]),  
-									.d({qIF_ID[`IF_ID_RS], ctl[`CTL_MEMSIGN], ctl[`CTL_MEMWIDTH], ctl[`CTL_BRANCH], 
+									.d({qIF_ID[`IF_ID_HALT], qIF_ID[`IF_ID_RS], ctl[`CTL_MEMSIGN], ctl[`CTL_MEMWIDTH], ctl[`CTL_BRANCH], 
 										ctl[`CTL_ALUCTL], ctl[`CTL_ALUSRC], ctl[`CTL_REGWRITE], 
 										ctl[`CTL_MEMWRITE], ctl[`CTL_MEMREAD], ctl[`CTL_MEM2REG],	ctl[`CTL_REGDST], 
 										qIF_ID[`IF_ID_PCPLUS4], signExt_D, readData1_D, readData2_D, qIF_ID[`IF_ID_RT], 
@@ -163,7 +172,7 @@ module datapath #(parameter N = 32)
 										.reset(reset),
 										.enable(1),
 										.clr(0),  
-										.d({qID_EX[`ID_EX_MEMSIGN], qID_EX[`ID_EX_MEMWIDTH], qID_EX[`ID_EX_MEM2REG], qID_EX[`ID_EX_REGWRITE], qID_EX[`ID_EX_MEMREAD], 
+										.d({qID_EX[`ID_EX_HALT], qID_EX[`ID_EX_MEMSIGN], qID_EX[`ID_EX_MEMWIDTH], qID_EX[`ID_EX_MEM2REG], qID_EX[`ID_EX_REGWRITE], qID_EX[`ID_EX_MEMREAD], 
 											zero_E, qID_EX[`ID_EX_BRANCH], PCBranch_D, qID_EX[`ID_EX_MEMWRITE], aluResult_E, 
 											writeData_E, wa3, qID_EX[`ID_EX_PCPLUS4]}),
 										.q(qEX_MEM));	
@@ -185,11 +194,12 @@ module datapath #(parameter N = 32)
 									.reset(reset),
 									.enable(1),
 									.clr(0),  
-									.d({qEX_MEM[`EX_MEM_REGWRITE], qEX_MEM[`EX_MEM_MEM2REG], readData_M, 
+									.d({qEX_MEM[`EX_MEM_HALT], qEX_MEM[`EX_MEM_REGWRITE], qEX_MEM[`EX_MEM_MEM2REG], readData_M, 
 										qEX_MEM[`EX_MEM_ALURESULT], qEX_MEM[`EX_MEM_WA3], qEX_MEM[`EX_MEM_PCPLUS4]}),
 									.q(qMEM_WB));
 	
-	
+	assign halt_instr_signal = qMEM_WB[`MEM_WB_HALT];
+
 	writeback 	WRITEBACK (.aluResult(qMEM_WB[`MEM_WB_ALURESULT]), 
 							.dmemReadData(qMEM_WB[`MEM_WB_READDATA]), 
 							.memtoReg(qMEM_WB[`MEM_WB_MEM2REG]),

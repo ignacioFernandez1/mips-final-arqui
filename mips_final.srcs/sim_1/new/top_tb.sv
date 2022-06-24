@@ -5,17 +5,18 @@ module top_tb();
    reg [7:0] data;
    integer   fd;
    integer   code;
-   logic i_clock, tick, din_ready, tx, halt_instr_signal;
-   logic [7:0] din;
-   logic rx_top;
+   logic i_clock, din_ready, tx, halt_instr_signal;
+   logic [7:0] din, drx;
+   logic rx_top, tx_top;
+   logic rx_done;
    logic du_reset;
    logic [2:0] finish;
    
    // TOP I/O
    logic reset;
    top top (.clk_in(clk), .i_reset(reset), .i_clock(i_clock), .rx(rx_top), .du_reset(du_reset), .halt_instr_signal(halt_instr_signal));
-   Tx txdut(.i_clock(i_clock), .i_reset(reset), .tick(tick), .din(din), .din_ready(din_ready), .tx(rx_top));
-   baud_rate br(.i_clock(i_clock), .tick(tick));
+   top_uart uart(.i_clock(i_clock), .i_reset(reset), .rx_top(tx_top), .dtx_ready(din_ready),
+               .dtx(din), .tx_top(rx_top), .rx_done(rx_done), .drx(drx));
 
    initial begin
       fd = $fopen("input.dat","rb");
@@ -47,15 +48,9 @@ module top_tb();
       while(1)
       begin
          #50;
-         if(finish == 5) $finish;
+         if(halt_instr_signal) $finish;
       end
    end 
    always #5 clk = ~clk;
 
-   always @(posedge i_clock) begin
-      if(halt_instr_signal)
-      begin
-         finish = finish + 1;
-      end 
-   end
 endmodule

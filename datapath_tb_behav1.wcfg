@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="3,284,601.784 ns"></ZoomStartTime>
-      <ZoomEndTime time="3,284,621.085 ns"></ZoomEndTime>
-      <Cursor1Time time="3,284,605.000 ns"></Cursor1Time>
+      <ZoomStartTime time="3,334,260.845 ns"></ZoomStartTime>
+      <ZoomEndTime time="3,334,285.776 ns"></ZoomEndTime>
+      <Cursor1Time time="3,334,265.670 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="244"></NameColumnWidth>
-      <ValueColumnWidth column_width="106"></ValueColumnWidth>
+      <ValueColumnWidth column_width="102"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="15" />
+   <WVObjectSize size="17" />
    <wvobject fp_name="/top_tb/data" type="array">
       <obj_property name="ElementShortName">data[7:0]</obj_property>
       <obj_property name="ObjectShortName">data[7:0]</obj_property>
@@ -82,5 +82,14 @@
    <wvobject fp_name="/top_tb/halt_instr_signal" type="logic">
       <obj_property name="ElementShortName">halt_instr_signal</obj_property>
       <obj_property name="ObjectShortName">halt_instr_signal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/instruction" type="array">
+      <obj_property name="ElementShortName">instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[31:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/halt_instr_D" type="logic">
+      <obj_property name="ElementShortName">halt_instr_D</obj_property>
+      <obj_property name="ObjectShortName">halt_instr_D</obj_property>
    </wvobject>
 </wave_config>
