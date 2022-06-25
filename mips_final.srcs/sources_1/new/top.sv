@@ -2,7 +2,7 @@ import common::*;
 
  module top(
   input logic clk_in, i_reset, rx, du_reset,
-  output logic i_clock, o_locked, halt_instr_signal
+  output logic i_clock, o_locked, halt_instr_signal, tx
   );
 
   
@@ -20,7 +20,7 @@ import common::*;
 	logic [31:0] debug_read_addr_mem;
   
   // debug unit
-  logic tx, du_clock, du_imem_op, imem_addr_select;
+  logic du_clock, du_imem_op, imem_addr_select;
   logic [31:0] du_imem_address, du_instr;
 
 
@@ -32,7 +32,7 @@ import common::*;
                .du_imem_op(du_imem_op), .imem_addr_select(imem_addr_select), .du_instr(du_instr),
                .debug_read_data_reg(debug_read_data_reg), .debug_read_addr_reg(debug_read_addr_reg),
                .debug_read_data_mem(debug_read_data_mem), .debug_read_addr_mem(debug_read_addr_mem),
-               .debug_pc(dp_imem_addr));
+               .debug_pc(dp_imem_addr), .halt_instr_signal(halt_instr_signal));
 
   imem imem(.i(du_instr), .addr(imem_addr), .op(du_imem_op), .q(inst_out));
   controlUnit cu(.opcode(opcode), .func(func), .ctl(ctl));

@@ -174,8 +174,8 @@ module Tx
     input wire [7:0] din,
     input wire din_ready,
     // OUTPUTS
-    output reg tx
-   
+    output reg tx,
+    output reg tx_sent
     );
     
     reg [4:0] tick_count;
@@ -218,6 +218,7 @@ module Tx
                 dato_esperando <= 0;
                 tick_flag <= 0;
                 tx <= 1;
+                tx_sent <= 0;
                 next_state <= STATE_WAITING;            
             end
             STATE_WAITING: begin
@@ -228,6 +229,7 @@ module Tx
                 tx <= 1; 
                 if(dato_esperando)
                 begin
+                    tx_sent <= 0;
                     next_state <= STATE_LOAD;  
                 end                  
             end
@@ -246,7 +248,10 @@ module Tx
                  
                 if(tick_count == 0 && tick_flag)
                 begin
-                   if(bit_count == 11 ) next_state <= STATE_WAITING;
+                   if(bit_count == 11 ) begin
+                    tx_sent <= 1;
+                    next_state <= STATE_WAITING;
+                   end
                    else
                    begin
                        tx <= trama[bit_count];
@@ -263,6 +268,7 @@ module Tx
                 dato_esperando <= 0;
                 tick_flag <= 0;
                 tx <= 1;
+                tx_sent <= 0;
                 next_state <= STATE_WAITING;            
             end                                  
         endcase                                                           

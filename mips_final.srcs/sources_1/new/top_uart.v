@@ -24,7 +24,7 @@ module top_uart(
 
     input i_clock, i_reset, rx_top, dtx_ready,
     input [7:0] dtx,
-    output tx_top, rx_done,
+    output tx_top, rx_done, tx_sent,
     output [7:0] drx
     );
     
@@ -33,7 +33,7 @@ module top_uart(
 
     // DUT instantiation 
     baud_rate baud_dut (.i_clock(i_clock),.tick(tick));
-    Tx tx_dut (.i_clock(i_clock),.i_reset(i_reset),.tick(tick),.tx(tx_top),.din(dtx),.din_ready(dtx_ready));
+    Tx tx_dut (.i_clock(i_clock),.i_reset(i_reset),.tick(tick),.tx(tx_top),.din(dtx),.din_ready(dtx_ready), .tx_sent(tx_sent));
     Rx rx_dut (.i_clock(i_clock),.i_reset(i_reset),.tick(tick),.rx(rx_top),.dout(drx),.rx_done(rx_done));
     
 endmodule

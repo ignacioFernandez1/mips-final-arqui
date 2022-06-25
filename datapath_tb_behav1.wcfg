@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="3,334,260.845 ns"></ZoomStartTime>
-      <ZoomEndTime time="3,334,285.776 ns"></ZoomEndTime>
-      <Cursor1Time time="3,334,265.670 ns"></Cursor1Time>
+      <ZoomStartTime time="3,330.539962 us"></ZoomStartTime>
+      <ZoomEndTime time="3,479.451230 us"></ZoomEndTime>
+      <Cursor1Time time="4,190.916176 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="244"></NameColumnWidth>
-      <ValueColumnWidth column_width="102"></ValueColumnWidth>
+      <ValueColumnWidth column_width="78"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="17" />
+   <WVObjectSize size="20" />
    <wvobject fp_name="/top_tb/data" type="array">
       <obj_property name="ElementShortName">data[7:0]</obj_property>
       <obj_property name="ObjectShortName">data[7:0]</obj_property>
@@ -75,21 +75,32 @@
       <obj_property name="ElementShortName">i_reset</obj_property>
       <obj_property name="ObjectShortName">i_reset</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/du/rx_done" type="logic">
+   <wvobject fp_name="/top_tb/rx_done" type="logic">
       <obj_property name="ElementShortName">rx_done</obj_property>
       <obj_property name="ObjectShortName">rx_done</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/halt_instr_signal" type="logic">
+   <wvobject fp_name="/top_tb/top/du/halt_instr_signal" type="logic">
       <obj_property name="ElementShortName">halt_instr_signal</obj_property>
       <obj_property name="ObjectShortName">halt_instr_signal</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/dp/instruction" type="array">
-      <obj_property name="ElementShortName">instruction[31:0]</obj_property>
-      <obj_property name="ObjectShortName">instruction[31:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
+   <wvobject fp_name="/top_tb/top/du/mode" type="array">
+      <obj_property name="ElementShortName">mode[7:0]</obj_property>
+      <obj_property name="ObjectShortName">mode[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/dp/halt_instr_D" type="logic">
-      <obj_property name="ElementShortName">halt_instr_D</obj_property>
-      <obj_property name="ObjectShortName">halt_instr_D</obj_property>
+   <wvobject fp_name="/top_tb/top/du/clock_enable" type="logic">
+      <obj_property name="ElementShortName">clock_enable</obj_property>
+      <obj_property name="ObjectShortName">clock_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/tx_sent" type="logic">
+      <obj_property name="ElementShortName">tx_sent</obj_property>
+      <obj_property name="ObjectShortName">tx_sent</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/i_pc_debug" type="array">
+      <obj_property name="ElementShortName">i_pc_debug[1:0]</obj_property>
+      <obj_property name="ObjectShortName">i_pc_debug[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/dtx_ready" type="logic">
+      <obj_property name="ElementShortName">dtx_ready</obj_property>
+      <obj_property name="ObjectShortName">dtx_ready</obj_property>
    </wvobject>
 </wave_config>

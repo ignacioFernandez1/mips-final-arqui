@@ -11,16 +11,18 @@ module top_tb();
    logic rx_done;
    logic du_reset;
    logic [2:0] finish;
+   logic finish_flag;
    
    // TOP I/O
    logic reset;
-   top top (.clk_in(clk), .i_reset(reset), .i_clock(i_clock), .rx(rx_top), .du_reset(du_reset), .halt_instr_signal(halt_instr_signal));
+   top top (.clk_in(clk), .i_reset(reset), .i_clock(i_clock), .rx(rx_top), .du_reset(du_reset), .halt_instr_signal(halt_instr_signal), .tx(tx_top));
    top_uart uart(.i_clock(i_clock), .i_reset(reset), .rx_top(tx_top), .dtx_ready(din_ready),
                .dtx(din), .tx_top(rx_top), .rx_done(rx_done), .drx(drx));
 
    initial begin
       fd = $fopen("input.dat","rb");
       finish = 0; 
+      finish_flag = 0;
       clk = 0;
       data = 0;
       code = 1;
@@ -48,8 +50,13 @@ module top_tb();
       while(1)
       begin
          #50;
-         if(halt_instr_signal) $finish;
+         if(finish_flag) $finish;
       end
+   end
+   always @(posedge rx_done) begin
+      $display("%b", drx);
+      finish = finish + 1;
+      if (finish == 3) finish_flag = 1;
    end 
    always #5 clk = ~clk;
 

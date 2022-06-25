@@ -95,7 +95,7 @@ module datapath #(parameter N = 32)
 	logic [N-1:0] readData1_FW_D, readData2_FW_D;
 	//hazard
 	logic memToRegE, memToRegM, branchOrJumpRegD;
-	logic halt_instr_D;
+	logic halt_instr_D, halt_instr_temp;
 
 	fetch 	FETCH 	(.PCSrc(PCSrc),
                     .clk(clk),
@@ -198,7 +198,7 @@ module datapath #(parameter N = 32)
 										qEX_MEM[`EX_MEM_ALURESULT], qEX_MEM[`EX_MEM_WA3], qEX_MEM[`EX_MEM_PCPLUS4]}),
 									.q(qMEM_WB));
 	
-	assign halt_instr_signal = qMEM_WB[`MEM_WB_HALT];
+	assign halt_instr_temp = qMEM_WB[`MEM_WB_HALT];
 
 	writeback 	WRITEBACK (.aluResult(qMEM_WB[`MEM_WB_ALURESULT]), 
 							.dmemReadData(qMEM_WB[`MEM_WB_READDATA]), 
@@ -227,4 +227,8 @@ module datapath #(parameter N = 32)
 					 .PCSrc(PCSrc),
 					 .HCTL(hctl));
 		
+	always @(posedge halt_instr_temp) begin
+		halt_instr_signal <= 1;
+	end
+
 endmodule
