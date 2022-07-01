@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="3,330.539962 us"></ZoomStartTime>
-      <ZoomEndTime time="3,479.451230 us"></ZoomEndTime>
-      <Cursor1Time time="4,190.916176 us"></Cursor1Time>
+      <ZoomStartTime time="9,144,920.895 ns"></ZoomStartTime>
+      <ZoomEndTime time="9,145,345.821 ns"></ZoomEndTime>
+      <Cursor1Time time="9,145,275.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="244"></NameColumnWidth>
-      <ValueColumnWidth column_width="78"></ValueColumnWidth>
+      <ValueColumnWidth column_width="70"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="20" />
+   <WVObjectSize size="24" />
    <wvobject fp_name="/top_tb/data" type="array">
       <obj_property name="ElementShortName">data[7:0]</obj_property>
       <obj_property name="ObjectShortName">data[7:0]</obj_property>
@@ -42,8 +42,8 @@
       <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/top/du/state" type="array">
-      <obj_property name="ElementShortName">state[2:0]</obj_property>
-      <obj_property name="ObjectShortName">state[2:0]</obj_property>
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/top/du/du_imem_op" type="logic">
       <obj_property name="ElementShortName">du_imem_op</obj_property>
@@ -95,12 +95,28 @@
       <obj_property name="ElementShortName">tx_sent</obj_property>
       <obj_property name="ObjectShortName">tx_sent</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/du/i_pc_debug" type="array">
-      <obj_property name="ElementShortName">i_pc_debug[1:0]</obj_property>
-      <obj_property name="ObjectShortName">i_pc_debug[1:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/top_tb/top/du/dtx_ready" type="logic">
       <obj_property name="ElementShortName">dtx_ready</obj_property>
       <obj_property name="ObjectShortName">dtx_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/rx_done" type="logic">
+      <obj_property name="ElementShortName">rx_done</obj_property>
+      <obj_property name="ObjectShortName">rx_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/i_pos_uart" type="array">
+      <obj_property name="ElementShortName">i_pos_uart[6:0]</obj_property>
+      <obj_property name="ObjectShortName">i_pos_uart[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/finish_flag" type="logic">
+      <obj_property name="ElementShortName">finish_flag</obj_property>
+      <obj_property name="ObjectShortName">finish_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/i_uart" type="array">
+      <obj_property name="ElementShortName">i_uart[1:0]</obj_property>
+      <obj_property name="ObjectShortName">i_uart[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/dtx" type="array">
+      <obj_property name="ElementShortName">dtx[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dtx[7:0]</obj_property>
    </wvobject>
 </wave_config>

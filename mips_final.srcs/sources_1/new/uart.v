@@ -227,9 +227,9 @@ module Tx
                 trama <= 0;
                 tick_flag <= 0;
                 tx <= 1; 
+                tx_sent <= 0;
                 if(dato_esperando)
                 begin
-                    tx_sent <= 0;
                     next_state <= STATE_LOAD;  
                 end                  
             end

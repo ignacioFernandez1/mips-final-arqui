@@ -12,6 +12,12 @@ module top_tb();
    logic du_reset;
    logic [2:0] finish;
    logic finish_flag;
+   logic [1:0] i_uart;
+   logic [6:0] i_pos_uart;
+   logic [31:0] uart_data;
+
+   logic [31:0] registers [0:64];
+
    
    // TOP I/O
    logic reset;
@@ -35,6 +41,11 @@ module top_tb();
       din_ready = 1; #1000;
       din_ready = 0; #100000;
 
+      // for uart receive
+      i_uart = 3;
+      i_pos_uart = 0;
+
+
       while (code) begin
          code = $fread(data, fd);
          $display("data = %b", data);
@@ -50,13 +61,24 @@ module top_tb();
       while(1)
       begin
          #50;
-         if(finish_flag) $finish;
+         if(finish_flag) begin
+            $display("PC = %b", registers[0]);
+            for(int i=1;i<33;i++) $display("REG %d = %b", i - 1, registers[i]);
+            $finish;
+         end
       end
    end
    always @(posedge rx_done) begin
-      $display("%b", drx);
-      finish = finish + 1;
-      if (finish == 3) finish_flag = 1;
+      uart_data[(i_uart*8) +: 8] = drx;
+      i_uart = i_uart - 1;
+      if(i_uart == 3)begin
+         $display("ANASHI");
+         registers[i_pos_uart] = uart_data;
+         i_pos_uart = i_pos_uart + 1;
+         $display("IPOS %d", i_pos_uart);
+         if(i_pos_uart == 33) finish_flag = 1;
+         else i_uart = 3;
+      end
    end 
    always #5 clk = ~clk;
 

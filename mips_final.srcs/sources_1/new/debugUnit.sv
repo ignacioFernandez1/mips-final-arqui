@@ -24,26 +24,32 @@ module debugUnit(
 
     logic dtx_ready, rx_done;
     logic [7:0] dtx, drx;
-    logic [2:0] state;
-    logic [2:0] next_state;
+    logic [3:0] state;
+    logic [3:0] next_state;
     logic [7:0] mode;
     logic [31:0] instr;
     logic [1:0] i;
     logic clock_enable;
-    logic tx_sent;
-    logic [1:0] i_pc_debug;
+    logic tx_sent, tx_sent_flag;
+    logic [1:0] i_debug;
+    logic [5:0] pos_count;
+    logic [5:0] pos_count;
+    logic [31:0] debug_data_aux;
 
     localparam IMEM_WRITE = 0;
     localparam IMEM_READ = 1;
 
-    localparam STATE_INIT = 3'b000;
-    localparam STATE_INSTR_RCV = 3'b001;
-    localparam STATE_INSTR_WRITE = 3'b010;
-    localparam STATE_INSTR_FINISHED = 3'b011;
-    localparam STATE_EXECUTING = 3'b100;
-    localparam STATE_SEND_DEBUG_PC = 3'b101;
-    localparam STATE_SEND_DEBUG_REG = 3'b110;
-    localparam STATE_SEND_DEBUG_MEM = 3'b111;
+    localparam STATE_INIT = 4'b0000;
+    localparam STATE_INSTR_RCV = 4'b0001;
+    localparam STATE_INSTR_WRITE = 4'b0010;
+    localparam STATE_INSTR_FINISHED = 4'b0011;
+    localparam STATE_EXECUTING = 4'b0100;
+    localparam STATE_SEND_DEBUG_PC = 4'b0101;
+    localparam STATE_SEND_DEBUG_PC_WAIT = 4'b0110;
+    localparam STATE_SEND_DEBUG_REG = 4'b0111;
+    localparam STATE_SEND_DEBUG_REG_WAIT = 4'b1000;
+    localparam STATE_SEND_DEBUG_MEM = 4'b1001;
+    
 
     top_uart uart(.i_clock(i_clock), .i_reset(i_reset), .rx_top(rx), .dtx_ready(dtx_ready),
                   .dtx(dtx), .tx_top(tx), .rx_done(rx_done), .drx(drx), .tx_sent(tx_sent));
@@ -68,19 +74,20 @@ module debugUnit(
             // esto en la sintezis no va a funcionar
             state = STATE_INSTR_RCV;
             next_state = STATE_INSTR_RCV;
-        end
-        if (du_instr == 0) begin
-            clock_enable = 1;
-            imem_addr_select = 1;
-            du_imem_op = IMEM_READ;  
-            next_state = STATE_EXECUTING;
+            if (du_instr == 0) begin
+                clock_enable = 1;
+                imem_addr_select = 1;
+                du_imem_op = IMEM_READ;  
+                next_state = STATE_EXECUTING;
+            end
         end
         if(state == STATE_EXECUTING) begin
-            i_pc_debug = 3;
+            i_debug = 3;
             if(mode == `MODE_NORMAL) begin
                 if(halt_instr_signal) begin
                     next_state = STATE_SEND_DEBUG_PC;
                     state = STATE_SEND_DEBUG_PC;
+                    clock_enable = 0;
                 end
             end
             else begin
@@ -88,23 +95,51 @@ module debugUnit(
             end
         end
         if (state == STATE_SEND_DEBUG_PC) begin
-            clock_enable = 0;
-            dtx = debug_pc[(i_pc_debug*8) +: 8];
-            dtx_ready = 1;
-            if (tx_sent) begin
-                i_pc_debug = i_pc_debug - 1;
-                dtx = debug_pc[(i_pc_debug*8) +: 8];
+            if(tx_sent == 0)begin
+                dtx = debug_pc[(i_debug*8) +: 8];
                 dtx_ready = 1;
-                if(i_pc_debug == 0) begin
-                    state = STATE_INSTR_FINISHED;
-                end
+                next_state = STATE_SEND_DEBUG_PC_WAIT;
             end
-            else begin
-                dtx_ready = 0;
+        end
+        if (state == STATE_SEND_DEBUG_PC_WAIT) begin
+            dtx_ready = 0;
+            if (tx_sent)begin
+                i_debug = i_debug - 1;
+                if(i_debug == 3) begin
+                    pos_count = 0;
+                    i_debug = 3;
+                    next_state = STATE_SEND_DEBUG_REG;
+                end
+                else next_state = STATE_SEND_DEBUG_PC;
+            end
+        end
+        if (state == STATE_SEND_DEBUG_REG) begin
+            debug_read_addr_reg = pos_count;
+            if(tx_sent == 0)begin
+                dtx = debug_read_data_reg[(i_debug*8) +: 8];
+                dtx_ready = 1;
+                next_state = STATE_SEND_DEBUG_REG_WAIT;
+            end
+        end
+        if (state == STATE_SEND_DEBUG_REG_WAIT) begin
+            dtx_ready = 0;
+            if (tx_sent)begin
+                i_debug = i_debug - 1;
+                if(i_debug == 3) begin
+                    pos_count = pos_count + 1;
+                    i_debug = 3;
+                    if(pos_count == 33)begin
+                        // pos_count me
+                        next_state = STATE_SEND_DEBUG_MEM;
+                    end
+                    else next_state = STATE_SEND_DEBUG_REG;                       
+                end
+                else next_state = STATE_SEND_DEBUG_REG;
             end
         end
     end
-    
+
+
     always_ff @( posedge rx_done) begin
         case (state)
             STATE_INIT:
