@@ -243,6 +243,16 @@ ops = {
             "inm": 1,
         }
     },
+    "sw": {
+        "optype": I_TYPE,
+        "args": ["rt", "rs", "inm"],
+        "values": {
+            "opcode": "101011",
+            "rs": 2,
+            "rt": 0,
+            "inm": 1,
+        }
+    },
     "addi": {
         "optype": I_TYPE,
         "args": ["rt", "rs", "inm"],

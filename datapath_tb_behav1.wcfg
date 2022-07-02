@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="9,144,920.895 ns"></ZoomStartTime>
-      <ZoomEndTime time="9,145,345.821 ns"></ZoomEndTime>
-      <Cursor1Time time="9,145,275.000 ns"></Cursor1Time>
+      <ZoomStartTime time="13,909.533244 us"></ZoomStartTime>
+      <ZoomEndTime time="15,124.071221 us"></ZoomEndTime>
+      <Cursor1Time time="18,624.765000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="244"></NameColumnWidth>
-      <ValueColumnWidth column_width="70"></ValueColumnWidth>
+      <ValueColumnWidth column_width="62"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="24" />
+   <WVObjectSize size="30" />
    <wvobject fp_name="/top_tb/data" type="array">
       <obj_property name="ElementShortName">data[7:0]</obj_property>
       <obj_property name="ObjectShortName">data[7:0]</obj_property>
@@ -106,6 +106,7 @@
    <wvobject fp_name="/top_tb/i_pos_uart" type="array">
       <obj_property name="ElementShortName">i_pos_uart[6:0]</obj_property>
       <obj_property name="ObjectShortName">i_pos_uart[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/finish_flag" type="logic">
       <obj_property name="ElementShortName">finish_flag</obj_property>
@@ -118,5 +119,30 @@
    <wvobject fp_name="/top_tb/top/du/dtx" type="array">
       <obj_property name="ElementShortName">dtx[7:0]</obj_property>
       <obj_property name="ObjectShortName">dtx[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/dtx" type="array">
+      <obj_property name="ElementShortName">dtx[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dtx[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/debug_read_addr_mem" type="array">
+      <obj_property name="ElementShortName">debug_read_addr_mem[31:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_read_addr_mem[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/du/debug_read_data_mem" type="array">
+      <obj_property name="ElementShortName">debug_read_data_mem[31:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_read_data_mem[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/MEMORY/dataMemory/debug_read_data" type="array">
+      <obj_property name="ElementShortName">debug_read_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_read_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/MEMORY/dataMemory/debug_read_addr" type="array">
+      <obj_property name="ElementShortName">debug_read_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_read_addr[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/MEMORY/dataMemory/debug_alignedAddr" type="array">
+      <obj_property name="ElementShortName">debug_alignedAddr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_alignedAddr[31:0]</obj_property>
    </wvobject>
 </wave_config>

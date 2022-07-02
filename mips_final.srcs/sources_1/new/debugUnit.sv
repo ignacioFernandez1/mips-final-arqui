@@ -32,8 +32,7 @@ module debugUnit(
     logic clock_enable;
     logic tx_sent, tx_sent_flag;
     logic [1:0] i_debug;
-    logic [5:0] pos_count;
-    logic [5:0] pos_count;
+    logic [6:0] pos_count;
     logic [31:0] debug_data_aux;
 
     localparam IMEM_WRITE = 0;
@@ -49,6 +48,8 @@ module debugUnit(
     localparam STATE_SEND_DEBUG_REG = 4'b0111;
     localparam STATE_SEND_DEBUG_REG_WAIT = 4'b1000;
     localparam STATE_SEND_DEBUG_MEM = 4'b1001;
+    localparam STATE_SEND_DEBUG_MEM_WAIT = 4'b1010;
+    localparam STATE_END = 4'b1011;
     
 
     top_uart uart(.i_clock(i_clock), .i_reset(i_reset), .rx_top(rx), .dtx_ready(dtx_ready),
@@ -128,13 +129,37 @@ module debugUnit(
                 if(i_debug == 3) begin
                     pos_count = pos_count + 1;
                     i_debug = 3;
-                    if(pos_count == 33)begin
-                        // pos_count me
+                    if(pos_count == 32)begin
+                        pos_count = 0;
                         next_state = STATE_SEND_DEBUG_MEM;
                     end
                     else next_state = STATE_SEND_DEBUG_REG;                       
                 end
                 else next_state = STATE_SEND_DEBUG_REG;
+            end
+        end
+        if (state == STATE_SEND_DEBUG_MEM) begin
+            debug_read_addr_mem = pos_count;
+            if(tx_sent == 0)begin
+                dtx = debug_read_data_mem[(i_debug*8) +: 8];
+                dtx_ready = 1;
+                next_state = STATE_SEND_DEBUG_MEM_WAIT;
+            end
+        end
+        if (state == STATE_SEND_DEBUG_MEM_WAIT) begin
+            dtx_ready = 0;
+            if (tx_sent)begin
+                i_debug = i_debug - 1;
+                if(i_debug == 3) begin
+                    pos_count = pos_count + 4;
+                    i_debug = 3;
+                    if(pos_count == 128)begin
+                        pos_count = 0;
+                        next_state = STATE_END;
+                    end
+                    else next_state = STATE_SEND_DEBUG_MEM;                       
+                end
+                else next_state = STATE_SEND_DEBUG_MEM;
             end
         end
     end
@@ -168,6 +193,7 @@ module debugUnit(
                 
             end
             STATE_INSTR_FINISHED: ;
+            STATE_END: ;
             default: next_state <= STATE_INIT;
         endcase
     end

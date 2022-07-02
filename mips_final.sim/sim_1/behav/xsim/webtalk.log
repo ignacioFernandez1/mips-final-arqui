@@ -2,13 +2,13 @@
 # Webtalk v2021.1 (64-bit)
 # SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
 # IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
-# Start of session at: Fri Jul  1 18:39:28 2022
-# Process ID: 15688
-# Current directory: E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim
-# Command line: wbtcv.exe -mode batch -source E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim/xsim.dir/top_tb_behav/webtalk/xsim_webtalk.tcl -notrace
-# Log file: E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim/webtalk.log
-# Journal file: E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim\webtalk.jou
+# Start of session at: Sat Jul  2 11:43:19 2022
+# Process ID: 18732
+# Current directory: C:/Users/nacho/Documents/Facultad/5to/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source C:/Users/nacho/Documents/Facultad/5to/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim/xsim.dir/top_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: C:/Users/nacho/Documents/Facultad/5to/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: C:/Users/nacho/Documents/Facultad/5to/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim\webtalk.jou
 #-----------------------------------------------------------
-source E:/Documentos/facu/5to -notrace
-couldn't read file "E:/Documentos/facu/5to": permission denied
-INFO: [Common 17-206] Exiting Webtalk at Fri Jul  1 18:39:28 2022...
+source C:/Users/nacho/Documents/Facultad/5to/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim/xsim.dir/top_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-186] 'C:/Users/nacho/Documents/Facultad/5to/arqui/mips-final-arqui/mips_final.sim/sim_1/behav/xsim/xsim.dir/top_tb_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Sat Jul  2 11:43:23 2022. For additional details about this file, please refer to the WebTalk help file at E:/Programs/Xilinx/Vivado/2021.1/doc/webtalk_introduction.html.
+INFO: [Common 17-206] Exiting Webtalk at Sat Jul  2 11:43:23 2022...

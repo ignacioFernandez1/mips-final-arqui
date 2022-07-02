@@ -16,7 +16,7 @@ module top_tb();
    logic [6:0] i_pos_uart;
    logic [31:0] uart_data;
 
-   logic [31:0] registers [0:64];
+   logic [31:0] registers [0:66];
 
    
    // TOP I/O
@@ -63,7 +63,10 @@ module top_tb();
          #50;
          if(finish_flag) begin
             $display("PC = %b", registers[0]);
-            for(int i=1;i<33;i++) $display("REG %d = %b", i - 1, registers[i]);
+            $display("------REGISTERS--------");
+            for(int i=1;i<33;i++) $display("REG %0d = %b", i - 1, registers[i]);
+            $display("------MEMORY--------");
+            for(int i=33;i<65;i++) $display("DMEM %0d = %b", i - 33, registers[i]);
             $finish;
          end
       end
@@ -72,11 +75,9 @@ module top_tb();
       uart_data[(i_uart*8) +: 8] = drx;
       i_uart = i_uart - 1;
       if(i_uart == 3)begin
-         $display("ANASHI");
          registers[i_pos_uart] = uart_data;
          i_pos_uart = i_pos_uart + 1;
-         $display("IPOS %d", i_pos_uart);
-         if(i_pos_uart == 33) finish_flag = 1;
+         if(i_pos_uart == 66) finish_flag = 1;
          else i_uart = 3;
       end
    end 
