@@ -62,12 +62,18 @@ module top_tb();
       begin
          #50;
          if(finish_flag) begin
+            $display("------PROGRAM COUNTER--------");
             $display("PC = %b", registers[0]);
             $display("------REGISTERS--------");
             for(int i=1;i<33;i++) $display("REG %0d = %b", i - 1, registers[i]);
             $display("------MEMORY--------");
             for(int i=33;i<65;i++) $display("DMEM %0d = %b", i - 33, registers[i]);
-            $finish;
+            if (halt_instr_signal) $finish;
+            else begin
+                finish_flag = 0;
+                i_uart = 3;
+                i_pos_uart = 0;
+            end
          end
       end
    end
@@ -77,7 +83,7 @@ module top_tb();
       if(i_uart == 3)begin
          registers[i_pos_uart] = uart_data;
          i_pos_uart = i_pos_uart + 1;
-         if(i_pos_uart == 66) finish_flag = 1;
+         if(i_pos_uart == 65) finish_flag = 1;
          else i_uart = 3;
       end
    end 

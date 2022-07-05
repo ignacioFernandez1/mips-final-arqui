@@ -22,14 +22,14 @@
 
 module baud_rate
   #(
-    parameter rate = 125000
+    parameter rate = 1250000
     )
     (
     input wire i_clock,
     output reg tick = 1
     );
     
-    localparam CLOCK_HZ = 10000000;
+    localparam CLOCK_HZ = 20000000;
     localparam max_count = CLOCK_HZ / (rate * 16);
     reg [31:0] count  = 0;
     
