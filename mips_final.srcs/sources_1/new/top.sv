@@ -43,7 +43,7 @@ import common::*;
   // Clock out ports  
   .clk_out1(clk_out),
   // Status and control signals               
-  .reset(i_reset),
+  .reset(0),
   .locked(o_locked),
   // Clock in ports
   .clk_in1(clk_in)

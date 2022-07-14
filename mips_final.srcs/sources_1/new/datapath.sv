@@ -118,7 +118,8 @@ module datapath #(parameter N = 32)
 	
 
 
-	decode  DECODE 	(.clk(clk),	
+	decode  DECODE 	(.clk(clk),
+					.clock_enable(clock_enable),	
 					.regWrite(qMEM_WB[`MEM_WB_REGWRITE]),
 					.regDst(ctl[`CTL_REGDST]),
 					.PC(qIF_ID[`IF_ID_PCPLUS4]),

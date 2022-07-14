@@ -63,11 +63,11 @@ module top_tb();
          #50;
          if(finish_flag) begin
             $display("------PROGRAM COUNTER--------");
-            $display("PC = %b", registers[0]);
+            $display("PC = %d %b 0x%h", registers[0], registers[0], registers[0]);
             $display("------REGISTERS--------");
-            for(int i=1;i<33;i++) $display("REG %0d = %b", i - 1, registers[i]);
+            for(int i=1;i<33;i++) $display("REG %2d = %d %b 0x%h", i - 1, registers[i], registers[i], registers[i]);
             $display("------MEMORY--------");
-            for(int i=33;i<65;i++) $display("DMEM %0d = %b", i - 33, registers[i]);
+            for(int i=33;i<65;i++) $display("DMEM %2d = %d %b 0x%h", i - 33, registers[i], registers[i], registers[i]);
             if (halt_instr_signal) $finish;
             else begin
                 finish_flag = 0;

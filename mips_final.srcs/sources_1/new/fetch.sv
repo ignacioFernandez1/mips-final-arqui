@@ -14,10 +14,13 @@ module fetch
   always_comb
     begin
       if (reset == 1) pc_in = 0;
-      pc_in = PCSrc ? PCBranch : adder_out;
-      adder_a = pc_out;
-      adder_b = 4; 
-      imem_addr = pc_out;
+      else
+      begin
+        pc_in = PCSrc ? PCBranch : adder_out;
+        adder_a = pc_out;
+        adder_b = 4; 
+        imem_addr = pc_out;   
+      end
     end
 
 

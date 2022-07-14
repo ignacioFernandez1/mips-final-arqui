@@ -3,7 +3,7 @@
 
 module decode 
     #(parameter N = 32)
-    (input logic regWrite, clk,
+    (input logic regWrite, clk, clock_enable,
     input logic [1:0] regDst,
 	input logic [4:0] wa3,
 	input logic [4:0] debug_read_addr,
@@ -15,7 +15,7 @@ module decode
 	logic [N-1:0] adder_a, adder_b;
 
 	                                                       // read address rs **** read address rt
-	regfile 		registers(.clk(clk), .we3(regWrite), .ra1(instr[25:21]), .ra2(instr[20:16]), .wa3(wa3), 
+	regfile 		registers(.clk(clk), .clock_enable(clock_enable), .we3(regWrite), .ra1(instr[25:21]), .ra2(instr[20:16]), .wa3(wa3), 
 								.wd3(writeData3), .rd1(readData1), .rd2(readData2),
 								.debug_read_addr(debug_read_addr), .debug_read_data(debug_read_data));
 									
