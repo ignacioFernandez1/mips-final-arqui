@@ -68,7 +68,7 @@
 
 // DATAPATH
 module datapath #(parameter N = 32)
-					(input logic reset, clk,
+					(input logic reset, clk, clock_enable,
 					input logic [`WIDTH_CTL_BUS] ctl,									
 					input logic [N-1:0] instruction,
 					input logic [4:0] debug_read_addr_reg,
@@ -100,7 +100,7 @@ module datapath #(parameter N = 32)
 	fetch 	FETCH 	(.PCSrc(PCSrc),
                     .clk(clk),
                     .reset(reset),
-					.enable(~hctl[`HCTL_STALLF]),
+					.enable((~hctl[`HCTL_STALLF] & clock_enable)),
                     .PCBranch(PCTarget), 
                     .imem_addr(imem_addr));								
 					
@@ -108,7 +108,7 @@ module datapath #(parameter N = 32)
 
 	flopr 	#(`IF_ID_SIZE)		IF_ID 	(.clk(clk),
 										.reset(reset),
-										.enable(~hctl[`HCTL_STALLD]),
+										.enable((~hctl[`HCTL_STALLD] & clock_enable)),
 										.clr(hctl[`HCTL_FLUSHD]), 
 										.d({halt_instr_D, instruction, imem_addr}),
 										.q(qIF_ID));
@@ -142,7 +142,7 @@ module datapath #(parameter N = 32)
 		
 	flopr 	#(`ID_EX_SIZE)	ID_EX 	(.clk(clk),
 									.reset(reset),
-									.enable(1),
+									.enable(clock_enable),
 									.clr(hctl[`HCTL_FLUSHE]),  
 									.d({qIF_ID[`IF_ID_HALT], qIF_ID[`IF_ID_RS], ctl[`CTL_MEMSIGN], ctl[`CTL_MEMWIDTH], ctl[`CTL_BRANCH], 
 										ctl[`CTL_ALUCTL], ctl[`CTL_ALUSRC], ctl[`CTL_REGWRITE], 
@@ -170,7 +170,7 @@ module datapath #(parameter N = 32)
 
 	flopr 	#(`EX_MEM_SIZE)	 EX_MEM 	(.clk(clk),
 										.reset(reset),
-										.enable(1),
+										.enable(clock_enable),
 										.clr(0),  
 										.d({qID_EX[`ID_EX_HALT], qID_EX[`ID_EX_MEMSIGN], qID_EX[`ID_EX_MEMWIDTH], qID_EX[`ID_EX_MEM2REG], qID_EX[`ID_EX_REGWRITE], qID_EX[`ID_EX_MEMREAD], 
 											zero_E, qID_EX[`ID_EX_BRANCH], PCBranch_D, qID_EX[`ID_EX_MEMWRITE], aluResult_E, 
@@ -192,7 +192,7 @@ module datapath #(parameter N = 32)
 	
 	flopr 	#(`MEM_WB_SIZE)	MEM_WB 	(.clk(clk),
 									.reset(reset),
-									.enable(1),
+									.enable(clock_enable),
 									.clr(0),  
 									.d({qEX_MEM[`EX_MEM_HALT], qEX_MEM[`EX_MEM_REGWRITE], qEX_MEM[`EX_MEM_MEM2REG], readData_M, 
 										qEX_MEM[`EX_MEM_ALURESULT], qEX_MEM[`EX_MEM_WA3], qEX_MEM[`EX_MEM_PCPLUS4]}),

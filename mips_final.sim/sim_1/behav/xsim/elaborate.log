@@ -4,13 +4,10 @@ Running: E:/Programas/Xilinx/Vivado/2021.1/bin/unwrapped/win64.o/xelab.exe -wto 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 6 for port 'addr' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/top.sv:37]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 6 for port 'addr' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/top.sv:34]
 WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clr' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/fetch.sv:11]
 WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'd0' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:140]
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'enable' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:145]
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'enable' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:173]
 WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clr' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:174]
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'enable' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:195]
 WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clr' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:196]
 WARNING: [VRFC 10-3823] variable 'PCSrc' might have multiple concurrent drivers [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:188]
 Completed static elaboration

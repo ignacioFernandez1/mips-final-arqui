@@ -2,7 +2,7 @@ import common::*;
 
  module top(
   input logic clk_in, i_reset, rx, du_reset,
-  output logic i_clock, o_locked, halt_instr_signal, tx
+  output logic clk_out, o_locked, halt_instr_signal, tx
   );
 
   
@@ -20,15 +20,12 @@ import common::*;
 	logic [31:0] debug_read_addr_mem;
   
   // debug unit
-  logic du_clock, du_imem_op, imem_addr_select;
+  logic du_imem_op, imem_addr_select, clk_enable;
   logic [31:0] du_imem_address, du_instr;
 
-
-  assign i_clock = o_locked & clk_out;
-  
   mux2 imem_addr_in(.d0(du_imem_address), .d1(dp_imem_addr), .s(imem_addr_select), .y(imem_addr));
-  debugUnit du(.i_clock(i_clock), .i_reset(du_reset), .rx(rx),
-               .tx(tx), .du_clock(du_clock), .du_imem_address(du_imem_address), 
+  debugUnit du(.i_clock(clk_out), .i_reset(du_reset), .rx(rx),
+               .tx(tx), .clock_enable(clk_enable), .du_imem_address(du_imem_address), 
                .du_imem_op(du_imem_op), .imem_addr_select(imem_addr_select), .du_instr(du_instr),
                .debug_read_data_reg(debug_read_data_reg), .debug_read_addr_reg(debug_read_addr_reg),
                .debug_read_data_mem(debug_read_data_mem), .debug_read_addr_mem(debug_read_addr_mem),
@@ -36,7 +33,7 @@ import common::*;
 
   imem imem(.i(du_instr), .addr(imem_addr), .op(du_imem_op), .q(inst_out));
   controlUnit cu(.opcode(opcode), .func(func), .ctl(ctl));
-  datapath dp(.reset(i_reset), .clk(du_clock), .ctl(ctl), .instruction(inst_out), .imem_addr(dp_imem_addr), .opcode(opcode), .func(func),
+  datapath dp(.reset(i_reset), .clk(clk_out), .clock_enable(clk_enable), .ctl(ctl), .instruction(inst_out), .imem_addr(dp_imem_addr), .opcode(opcode), .func(func),
               .halt_instr_signal(halt_instr_signal),
               .debug_read_data_reg(debug_read_data_reg), .debug_read_addr_reg(debug_read_addr_reg),
               .debug_read_data_mem(debug_read_data_mem), .debug_read_addr_mem(debug_read_addr_mem));            
