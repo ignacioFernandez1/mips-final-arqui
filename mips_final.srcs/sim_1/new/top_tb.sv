@@ -21,7 +21,7 @@ module top_tb();
    
    // TOP I/O
    logic reset;
-   top top (.clk_in(clk), .i_reset(reset), .i_clock(i_clock), .rx(rx_top), .du_reset(du_reset), .halt_instr_signal(halt_instr_signal), .tx(tx_top));
+   top top (.clk_in(clk), .i_reset(reset), .o_locked(o_locked), .clk_out(i_clock), .rx(rx_top), .du_reset(du_reset), .halt_instr_signal(halt_instr_signal), .tx(tx_top));
    top_uart uart(.i_clock(i_clock), .i_reset(reset), .rx_top(tx_top), .dtx_ready(din_ready),
                .dtx(din), .tx_top(rx_top), .rx_done(rx_done), .drx(drx));
 
@@ -34,10 +34,10 @@ module top_tb();
       code = 1;
       du_reset = 0; 
       // sending mode
-      wait(i_clock);
+      wait(o_locked);
       du_reset = 1; #100;
       du_reset = 0;
-      din = 8'b0;
+      din = 8'b1;
       din_ready = 1; #1000;
       din_ready = 0; #100000;
 
@@ -59,15 +59,15 @@ module top_tb();
       reset = 1; #100;
       reset = 0;
       while(1)
-      begin
+begin
          #50;
          if(finish_flag) begin
             $display("------PROGRAM COUNTER--------");
-            $display("PC = %b", registers[0]);
+            $display("PC = %d %b 0x%h", registers[0], registers[0], registers[0]);
             $display("------REGISTERS--------");
-            for(int i=1;i<33;i++) $display("REG %0d = %b", i - 1, registers[i]);
+            for(int i=1;i<33;i++) $display("REG %2d = %d %b 0x%h", i - 1, registers[i], registers[i], registers[i]);
             $display("------MEMORY--------");
-            for(int i=33;i<65;i++) $display("DMEM %0d = %b", i - 33, registers[i]);
+            for(int i=33;i<65;i++) $display("DMEM %2d = %d %b 0x%h", i - 33, registers[i], registers[i], registers[i]);
             if (halt_instr_signal) $finish;
             else begin
                 finish_flag = 0;

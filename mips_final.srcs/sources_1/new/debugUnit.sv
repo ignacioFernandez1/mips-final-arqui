@@ -16,7 +16,7 @@ module debugUnit(
     input logic [31:0] debug_read_data_mem,
     input logic [31:0] debug_pc,
     input logic halt_instr_signal,
-    output reg tx, du_clock, du_imem_op, imem_addr_select,
+    output reg tx, clock_enable, du_imem_op, imem_addr_select,
     output reg [31:0] du_imem_address, du_instr,
     output logic [4:0] debug_read_addr_reg,
     output logic [31:0] debug_read_addr_mem
@@ -29,7 +29,6 @@ module debugUnit(
     logic [7:0] mode;
     logic [31:0] instr;
     logic [1:0] i;
-    logic clock_enable;
     logic tx_sent, tx_sent_flag;
     logic [1:0] i_debug;
     logic [7:0] pos_count;
@@ -56,7 +55,6 @@ module debugUnit(
     top_uart uart(.i_clock(i_clock), .i_reset(i_reset), .rx_top(rx), .dtx_ready(dtx_ready),
                   .dtx(dtx), .tx_top(tx), .rx_done(rx_done), .drx(drx), .tx_sent(tx_sent));
 
-    assign du_clock = i_clock & clock_enable;
     
     always @(posedge i_clock) begin
         if(i_reset) next_state = STATE_INIT;
@@ -76,17 +74,15 @@ module debugUnit(
                 i = 3;
                 du_instr = instr;
                 du_imem_op = IMEM_WRITE;
-                // esto en la sintezis no va a funcionar
-                state = STATE_INSTR_RCV;
                 next_state = STATE_INSTR_RCV;
-                if (du_instr == 0) begin
-                    imem_addr_select = 1;
-                    du_imem_op = IMEM_READ;  
+                if (du_instr == 0) begin 
                     next_state = STATE_EXECUTING;
                 end
             end
             STATE_EXECUTING: 
             begin
+                imem_addr_select = 1;
+                du_imem_op = IMEM_READ; 
                 clock_enable = 1;
                 i_debug = 3;
                 if(mode == `MODE_NORMAL) begin

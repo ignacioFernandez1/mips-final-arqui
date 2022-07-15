@@ -11,88 +11,172 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="8,289.049635 us"></ZoomStartTime>
-      <ZoomEndTime time="9,675.801826 us"></ZoomEndTime>
-      <Cursor1Time time="9,164.695327 us"></Cursor1Time>
+      <ZoomStartTime time="24,369,831.500 ns"></ZoomStartTime>
+      <ZoomEndTime time="24,369,972.501 ns"></ZoomEndTime>
+      <Cursor1Time time="24,369,905.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="232"></NameColumnWidth>
+      <NameColumnWidth column_width="228"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="18" />
+   <WVObjectSize size="27" />
    <wvobject fp_name="/top_tb/top/dp/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/data" type="array">
-      <obj_property name="ElementShortName">data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">data[7:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/i_reset" type="logic">
+      <obj_property name="ElementShortName">i_reset</obj_property>
+      <obj_property name="ObjectShortName">i_reset</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/i_clock" type="logic">
-      <obj_property name="ElementShortName">i_clock</obj_property>
-      <obj_property name="ObjectShortName">i_clock</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/din" type="array">
-      <obj_property name="ElementShortName">din[7:0]</obj_property>
-      <obj_property name="ObjectShortName">din[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/top/du/state" type="array">
-      <obj_property name="ElementShortName">state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">state[3:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/rx_done" type="logic">
-      <obj_property name="ElementShortName">rx_done</obj_property>
-      <obj_property name="ObjectShortName">rx_done</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top_tb/top/du/halt_instr_signal" type="logic">
-      <obj_property name="ElementShortName">halt_instr_signal</obj_property>
-      <obj_property name="ObjectShortName">halt_instr_signal</obj_property>
+   <wvobject fp_name="/top_tb/top/o_locked" type="logic">
+      <obj_property name="ElementShortName">o_locked</obj_property>
+      <obj_property name="ObjectShortName">o_locked</obj_property>
    </wvobject>
    <wvobject fp_name="/top_tb/top/du/clock_enable" type="logic">
       <obj_property name="ElementShortName">clock_enable</obj_property>
       <obj_property name="ObjectShortName">clock_enable</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/finish_flag" type="logic">
-      <obj_property name="ElementShortName">finish_flag</obj_property>
-      <obj_property name="ObjectShortName">finish_flag</obj_property>
+   <wvobject fp_name="/top_tb/top/du/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/i_uart" type="array">
-      <obj_property name="ElementShortName">i_uart[1:0]</obj_property>
-      <obj_property name="ObjectShortName">i_uart[1:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/dp/PCSrc" type="logic">
+      <obj_property name="ElementShortName">PCSrc</obj_property>
+      <obj_property name="ObjectShortName">PCSrc</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/du/dtx" type="array">
-      <obj_property name="ElementShortName">dtx[7:0]</obj_property>
-      <obj_property name="ObjectShortName">dtx[7:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/dp/PCTarget" type="array">
+      <obj_property name="ElementShortName">PCTarget[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PCTarget[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/du/dtx" type="array">
-      <obj_property name="ElementShortName">dtx[7:0]</obj_property>
-      <obj_property name="ObjectShortName">dtx[7:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/dp/compare" type="logic">
+      <obj_property name="ElementShortName">compare</obj_property>
+      <obj_property name="ObjectShortName">compare</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/du/debug_read_addr_mem" type="array">
-      <obj_property name="ElementShortName">debug_read_addr_mem[31:0]</obj_property>
-      <obj_property name="ObjectShortName">debug_read_addr_mem[31:0]</obj_property>
+   <wvobject fp_name="group163" type="group">
+      <obj_property name="label">FETCH</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/PCSrc" type="logic">
+         <obj_property name="ElementShortName">PCSrc</obj_property>
+         <obj_property name="ObjectShortName">PCSrc</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/enable" type="logic">
+         <obj_property name="ElementShortName">enable</obj_property>
+         <obj_property name="ObjectShortName">enable</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/PCBranch" type="array">
+         <obj_property name="ElementShortName">PCBranch[31:0]</obj_property>
+         <obj_property name="ObjectShortName">PCBranch[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/imem_addr" type="array">
+         <obj_property name="ElementShortName">imem_addr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">imem_addr[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/pc_in" type="array">
+         <obj_property name="ElementShortName">pc_in[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc_in[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/pc_out" type="array">
+         <obj_property name="ElementShortName">pc_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc_out[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/adder_a" type="array">
+         <obj_property name="ElementShortName">adder_a[31:0]</obj_property>
+         <obj_property name="ObjectShortName">adder_a[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/adder_b" type="array">
+         <obj_property name="ElementShortName">adder_b[31:0]</obj_property>
+         <obj_property name="ObjectShortName">adder_b[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/adder_out" type="array">
+         <obj_property name="ElementShortName">adder_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">adder_out[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/top/dp/FETCH/N" type="array">
+         <obj_property name="ElementShortName">N[31:0]</obj_property>
+         <obj_property name="ObjectShortName">N[31:0]</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/du/debug_read_data_mem" type="array">
-      <obj_property name="ElementShortName">debug_read_data_mem[31:0]</obj_property>
-      <obj_property name="ObjectShortName">debug_read_data_mem[31:0]</obj_property>
+   <wvobject type="divider" fp_name="divider155">
+      <obj_property name="label">IF_ID</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/dp/FETCH/PC/q" type="array">
-      <obj_property name="ElementShortName">q[31:0]</obj_property>
-      <obj_property name="ObjectShortName">q[31:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/dp/IF_ID/enable" type="logic">
+      <obj_property name="ElementShortName">enable</obj_property>
+      <obj_property name="ObjectShortName">enable</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/dp/FETCH/PC/d" type="array">
-      <obj_property name="ElementShortName">d[31:0]</obj_property>
-      <obj_property name="ObjectShortName">d[31:0]</obj_property>
+   <wvobject fp_name="/top_tb/top/dp/IF_ID/enableDelay" type="logic">
+      <obj_property name="ElementShortName">enableDelay</obj_property>
+      <obj_property name="ObjectShortName">enableDelay</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/i_pos_uart" type="array">
-      <obj_property name="ElementShortName">i_pos_uart[6:0]</obj_property>
-      <obj_property name="ObjectShortName">i_pos_uart[6:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/top_tb/top/dp/IF_ID/enableRising" type="logic">
+      <obj_property name="ElementShortName">enableRising</obj_property>
+      <obj_property name="ObjectShortName">enableRising</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/top/du/pos_count" type="array">
-      <obj_property name="ElementShortName">pos_count[7:0]</obj_property>
-      <obj_property name="ObjectShortName">pos_count[7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject type="divider" fp_name="divider155">
+      <obj_property name="label">ID_EX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/ID_EX/enable" type="logic">
+      <obj_property name="ElementShortName">enable</obj_property>
+      <obj_property name="ObjectShortName">enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/ID_EX/enableDelay" type="logic">
+      <obj_property name="ElementShortName">enableDelay</obj_property>
+      <obj_property name="ObjectShortName">enableDelay</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/ID_EX/enableRising" type="logic">
+      <obj_property name="ElementShortName">enableRising</obj_property>
+      <obj_property name="ObjectShortName">enableRising</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/EX_MEM/enable" type="logic">
+      <obj_property name="ElementShortName">enable</obj_property>
+      <obj_property name="ObjectShortName">enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/EX_MEM/enableDelay" type="logic">
+      <obj_property name="ElementShortName">enableDelay</obj_property>
+      <obj_property name="ObjectShortName">enableDelay</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/EX_MEM/enableRising" type="logic">
+      <obj_property name="ElementShortName">enableRising</obj_property>
+      <obj_property name="ObjectShortName">enableRising</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/MEM_WB/enable" type="logic">
+      <obj_property name="ElementShortName">enable</obj_property>
+      <obj_property name="ObjectShortName">enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/MEM_WB/enableDelay" type="logic">
+      <obj_property name="ElementShortName">enableDelay</obj_property>
+      <obj_property name="ObjectShortName">enableDelay</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/MEM_WB/enableRising" type="logic">
+      <obj_property name="ElementShortName">enableRising</obj_property>
+      <obj_property name="ObjectShortName">enableRising</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/pcSrcMux/s" type="array">
+      <obj_property name="ElementShortName">s[1:0]</obj_property>
+      <obj_property name="ObjectShortName">s[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/pcSrcMux/y" type="array">
+      <obj_property name="ElementShortName">y[0:0]</obj_property>
+      <obj_property name="ObjectShortName">y[0:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/branchMux/s" type="array">
+      <obj_property name="ElementShortName">s[1:0]</obj_property>
+      <obj_property name="ObjectShortName">s[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/top/dp/branchMux/y" type="array">
+      <obj_property name="ElementShortName">y[31:0]</obj_property>
+      <obj_property name="ObjectShortName">y[31:0]</obj_property>
    </wvobject>
 </wave_config>
