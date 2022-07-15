@@ -29,7 +29,10 @@ module flopr
 
   always_ff @(posedge clk, posedge reset)
     if (reset) q <= 0;
-    else if (clr) q <= 0;
-    else if (enableDelay) q <= d;
+    else if (enableDelay)
+    begin
+      if (clr) q <= 0;
+      else q <= d;
+    end
 
 endmodule
