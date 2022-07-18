@@ -37,7 +37,7 @@ module top_tb();
       wait(o_locked);
       du_reset = 1; #100;
       du_reset = 0;
-      din = 8'b1;
+      din = 8'b0;
       din_ready = 1; #1000;
       din_ready = 0; #100000;
 

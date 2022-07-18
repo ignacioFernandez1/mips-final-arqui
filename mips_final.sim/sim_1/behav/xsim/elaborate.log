@@ -1,15 +1,15 @@
 Vivado Simulator v2021.1
 Copyright 1986-1999, 2001-2021 Xilinx, Inc. All Rights Reserved.
-Running: E:/Programas/Xilinx/Vivado/2021.1/bin/unwrapped/win64.o/xelab.exe -wto cbbbf05b556d46ac8dc42fad21debae6 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot top_tb_behav xil_defaultlib.top_tb xil_defaultlib.glbl -log elaborate.log 
+Running: E:/Programas/Xilinx/Vivado/2021.1/bin/unwrapped/win64.o/xelab.exe -wto cbbbf05b556d46ac8dc42fad21debae6 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot datapath_tb_behav xil_defaultlib.datapath_tb xil_defaultlib.glbl -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 6 for port 'addr' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/top.sv:34]
 WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clr' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/fetch.sv:11]
 WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'd0' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:140]
 WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clr' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:174]
 WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clr' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:196]
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'reset' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/top.sv:46]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'reset' [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/top_synt.sv:41]
+WARNING: [VRFC 10-5021] port 'du_reset' is not connected on this instance [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sim_1/new/datapath_tb.sv:20]
 WARNING: [VRFC 10-3823] variable 'PCSrc' might have multiple concurrent drivers [E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/mips_final.srcs/sources_1/new/datapath.sv:188]
 Completed static elaboration
 Starting simulation data flow analysis
@@ -22,11 +22,6 @@ WARNING: [XSIM 43-4099] "E:/Documentos/facu/5to segundo/arqui/mips-final-arqui/m
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
 Compiling module xil_defaultlib.mux2
-Compiling module xil_defaultlib.baud_rate_default
-Compiling module xil_defaultlib.Tx
-Compiling module xil_defaultlib.Rx
-Compiling module xil_defaultlib.top_uart
-Compiling module xil_defaultlib.debugUnit
 Compiling module xil_defaultlib.imem
 Compiling module xil_defaultlib.ALUDec
 Compiling module xil_defaultlib.controlUnit
@@ -52,10 +47,10 @@ Compiling module xil_defaultlib.hazardUnit
 Compiling module xil_defaultlib.datapath
 Compiling module unisims_ver.BUFG
 Compiling module unisims_ver.IBUF
-Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=8.5,C...
+Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=10.0,...
 Compiling module xil_defaultlib.clk_wiz_0_clk_wiz
 Compiling module xil_defaultlib.clk_wiz_0
-Compiling module xil_defaultlib.top
-Compiling module xil_defaultlib.top_tb
+Compiling module xil_defaultlib.top_synt
+Compiling module xil_defaultlib.datapath_tb
 Compiling module xil_defaultlib.glbl
-Built simulation snapshot top_tb_behav
+Built simulation snapshot datapath_tb_behav

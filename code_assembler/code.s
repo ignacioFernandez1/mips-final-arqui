@@ -1,8 +1,6 @@
-J 2
-ADDI f4, f0, 10
-JAL 4 
-ADDI f5, f0, 20
-JR f0
-ADDI f0, f0, 1
-ADDI f1, f0, 2
+ADDU f5, f1, f2
+SW f5, 0(f0)
+LW f6, 0(f0)
+ADDU f8, f6, f2
+ADDU f7, f1, f2
 HALT

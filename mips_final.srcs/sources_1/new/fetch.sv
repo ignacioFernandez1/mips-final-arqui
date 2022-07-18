@@ -8,7 +8,7 @@ module fetch
    output logic [N-1:0] imem_addr);
 
   logic [N-1:0] pc_in, pc_out, adder_a, adder_b, adder_out;
-  flopr #(N) PC(clk, reset, enable, 0, pc_in, pc_out);
+  flopr #(N) PC(clk, reset, enable, 0'b0, pc_in, pc_out);
   adder #(N) Add(adder_a, adder_b, adder_out);
 
   always_comb
